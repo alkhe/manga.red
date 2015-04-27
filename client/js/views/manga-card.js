@@ -7,7 +7,7 @@ export default React.createClass({
 	render() {
 		let m = this.props.manga;
 		return (
-			<Link to='manga' params={{ id: m.i }}>
+			<Link to='manga' params={{ alias: m.a }}>
 				<div className='col s6'>
 					<div className='card large teal lighten-1 z-depth-2 animated fadeIn'>
 						<div className='card-image'>

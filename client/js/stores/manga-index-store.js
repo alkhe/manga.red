@@ -3,10 +3,7 @@ import MangaActions from '../actions/manga-actions';
 
 class MangaIndexStore {
 	constructor() {
-		this.bindListeners({
-			onGetAllManga: MangaActions.getAllManga,
-			onGetAllMangaComplete: MangaActions.getAllMangaComplete
-		});
+		this.bindActions(MangaActions);
 
 		this.all = [];
 		this.sorted = [];

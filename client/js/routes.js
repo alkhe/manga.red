@@ -7,6 +7,6 @@ import MangaDetail from './views/manga-detail';
 export default (
 	<Route handler={App} path='/'>
 		<DefaultRoute name='main' handler={Search} />
-		<Route name='manga' handler={MangaDetail} path='manga/:id' />
+		<Route name='manga' handler={MangaDetail} path='manga/:alias' />
 	</Route>
 );
