@@ -1,0 +1,1 @@
+"use strict";var _interopRequireDefault=function(e){return e&&e.__esModule?e:{"default":e}};Object.defineProperty(exports,"__esModule",{value:!0});var _io=require("socket.io"),_io2=_interopRequireDefault(_io);exports["default"]=_io2["default"].connect(),module.exports=exports["default"];

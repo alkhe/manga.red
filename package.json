@@ -1,0 +1,32 @@
+{
+  "name": "mangaio",
+  "version": "0.0.1",
+  "description": "mangaio",
+  "scripts": {
+    "pro": "NODE_ENV=development gulp pro & nodemon",
+    "map": "NODE_ENV=development gulp map & nodemon",
+    "dev": "NODE_ENV=development gulp dev & nodemon"
+  },
+  "dependencies": {
+    "fs-extra": "^0.18.2",
+    "koa": "^0.19.1",
+    "koa-compress": "^1.0.8",
+    "koa-conditional-get": "^1.0.2",
+    "koa-etag": "^2.0.0",
+    "koa-logger": "git://github.com/edge/logger.git",
+    "koa-static": "^1.4.9",
+    "mongoose": "^4.0.2",
+    "socket.io": "^1.3.5"
+  },
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-cached": "^1.0.4",
+    "gulp-cssnext": "^1.0.0",
+    "gulp-jade": "^1.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}

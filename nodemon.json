@@ -1,0 +1,10 @@
+{
+	"ext": "js css",
+	"ignore": [
+		"client",
+		"public",
+		"node_modules",
+		".git",
+		"gulpfile.js"
+	]
+}
