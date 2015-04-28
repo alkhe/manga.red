@@ -18,53 +18,47 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
-var MangaChapterStore = (function () {
-	function MangaChapterStore() {
-		_classCallCheck(this, MangaChapterStore);
+var MangaTitleStore = (function () {
+	function MangaTitleStore() {
+		_classCallCheck(this, MangaTitleStore);
 
 		this.bindActions(_MangaAPIActions2['default']);
 
-		this.page = 0;
-		this.pages = [];
+		this.manga = {};
 
 		this.loading = false;
 		this.ready = false;
 		this.run = false;
 	}
 
-	_createClass(MangaChapterStore, [{
+	_createClass(MangaTitleStore, [{
 		key: 'getAllManga',
 		value: function getAllManga() {
 			this.loading = true;
 		}
 	}, {
-		key: 'getManga',
-		value: function getManga() {
-			this.loading = true;
-		}
-	}, {
-		key: 'getMangaComplete',
-		value: function getMangaComplete() {
+		key: 'getAllMangaComplete',
+		value: function getAllMangaComplete() {
 			this.run = true;
 		}
 	}, {
-		key: 'getChapter',
-		value: function getChapter() {
+		key: 'getManga',
+		value: function getManga() {
 			this.loading = true;
 			this.run = false;
 		}
 	}, {
-		key: 'getChapterComplete',
-		value: function getChapterComplete(pages) {
-			this.pages = pages;
+		key: 'getMangaComplete',
+		value: function getMangaComplete(manga) {
+			this.manga = manga;
 
 			this.loading = false;
 			this.ready = true;
 		}
 	}]);
 
-	return MangaChapterStore;
+	return MangaTitleStore;
 })();
 
-exports['default'] = _alt2['default'].createStore(MangaChapterStore, 'MangaChapterStore');
+exports['default'] = _alt2['default'].createStore(MangaTitleStore, 'MangaTitleStore');
 module.exports = exports['default'];

@@ -1,12 +1,11 @@
 import alt from '../alt';
 import MangaAPIActions from '../actions/manga-api-actions';
 
-class MangaChapterStore {
+class MangaTitleStore {
 	constructor() {
 		this.bindActions(MangaAPIActions);
 
-		this.page = 0;
-		this.pages = [];
+		this.manga = {};
 
 		this.loading = false;
 		this.ready = false;
@@ -15,22 +14,19 @@ class MangaChapterStore {
 	getAllManga() {
 		this.loading = true;
 	}
-	getManga() {
-		this.loading = true;
-	}
-	getMangaComplete() {
+	getAllMangaComplete() {
 		this.run = true;
 	}
-	getChapter() {
+	getManga() {
 		this.loading = true;
 		this.run = false;
 	}
-	getChapterComplete(pages) {
-		this.pages = pages;
-	
+	getMangaComplete(manga) {
+		this.manga = manga;
+
 		this.loading = false;
 		this.ready = true;
 	}
 }
 
-export default alt.createStore(MangaChapterStore, 'MangaChapterStore');
+export default alt.createStore(MangaTitleStore, 'MangaTitleStore');

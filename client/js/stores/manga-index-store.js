@@ -1,21 +1,25 @@
 import alt from '../alt';
-import MangaActions from '../actions/manga-actions';
+import MangaAPIActions from '../actions/manga-api-actions';
 
 class MangaIndexStore {
 	constructor() {
-		this.bindActions(MangaActions);
+		this.bindActions(MangaAPIActions);
 
 		this.all = [];
 		this.sorted = [];
+		
 		this.loading = false;
+		this.ready = false;
 	}
-	onGetAllManga() {
+	getAllManga() {
 		this.loading = true;
 	}
-	onGetAllMangaComplete(list) {
+	getAllMangaComplete(list) {
 		this.all = list;
 		this.sorted = list.sort((a, b) => b.h - a.h);
+
 		this.loading = false;
+		this.ready = true;
 	}
 }
 

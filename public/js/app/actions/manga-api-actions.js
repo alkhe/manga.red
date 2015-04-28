@@ -26,7 +26,6 @@ var MangaAPIActions = (function () {
 	_createClass(MangaAPIActions, [{
 		key: 'getAllManga',
 		value: function getAllManga() {
-			console.log('all');
 			_reqwest2['default']({
 				url: 'https://www.mangaeden.com/api/list/0/',
 				crossOrigin: true,

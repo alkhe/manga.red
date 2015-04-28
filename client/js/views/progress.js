@@ -4,9 +4,9 @@ let { PureRenderMixin } = React.addons;
 export default React.createClass({
 	mixins: [PureRenderMixin],
 	render() {
-		let innerClass = `${this.props.loading ? 'indeterminate' : 'determinate'} teal`;
+		let innerClass = `${this.props.loading ? 'indeterminate' : 'determinate'} teal lighten-4`;
 		return (
-			<div className='progress teal lighten-4'>
+			<div className='progress teal'>
 				<div className={innerClass}></div>
 			</div>
 		);

@@ -1,44 +1,38 @@
 import React from 'react';
+import { Link, State } from 'react-router';
 import Symbiosis from '../mixins/symbiosis-mixin';
-import MangaDetailActions from '../actions/manga-detail-actions';
-import MangaDetailStore from '../stores/manga-detail-store';
-import { State } from 'react-router';
+import MangaTitleStore from '../stores/manga-title-store';
 import Progress from '../views/progress';
 
 export default React.createClass({
-	mixins: [State, Symbiosis(MangaDetailStore)],
-	componentWillUpdate: function(nextProps, nextState) {
-		if (nextState.ready && nextState.loading) {
-			let params = this.getParams();
-			MangaDetailActions.getManga(params.alias);
-		}
-	},
-	renderChapters() {
-		let chapters = this.state.manga.chapters.map(c =>
-				<a className='collection-item'>
+	mixins: [State, Symbiosis(MangaTitleStore)],
+	renderDetail() {
+		let detail;
+		if (this.state.ready && !this.state.loading) {
+			let chapters = this.state.manga.chapters.map(c =>
+				<Link to='chapter' params={{ alias: this.getParams().alias, chapter: c[0] }} className='collection-item'>
 					{c[2]}
-				</a>
+				</Link>
 			);
-		return (
-			<div className='collection'>
-				{chapters}
-			</div>
-		);
-	},
-	render() {
-		let inner = this.state.ready && !this.state.loading
-			? (
+			detail = (
 				<div className='animated fadeIn'>
 					<h1>{this.state.manga.title}</h1>
 					<p className='flow-text'>{_.unescape(this.state.manga.description)}</p>
-					{this.renderChapters()}
+					<div className='collection'>
+						{chapters}
+					</div>
 				</div>
-			)
-			: null;
+			);
+		}
+		return detail;
+	},
+	render() {
 		return (
-			<div className='teal-text'>
+			<div>
 				<Progress loading={this.state.loading} />
-				{inner}
+				<div className='teal-text'>
+					{this.renderDetail()}
+				</div>
 			</div>
 		);
 	}
