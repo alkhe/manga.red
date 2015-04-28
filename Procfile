@@ -1,1 +1,1 @@
-web: npm run srv
+web: node index.js
