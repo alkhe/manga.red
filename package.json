@@ -29,5 +29,8 @@
     "gulp-plumber": "^1.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0"
+  },
+  "engines": {
+    "iojs": "1.x"
   }
 }
