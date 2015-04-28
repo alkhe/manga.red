@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "mangaio",
   "scripts": {
-    "pro": "NODE_ENV=development gulp pro & nodemon",
+    "srv": "NODE_ENV=production node ./index.js",
+    "pro": "NODE_ENV=production gulp pro & nodemon",
     "map": "NODE_ENV=development gulp map & nodemon",
     "dev": "NODE_ENV=development gulp dev & nodemon"
   },
