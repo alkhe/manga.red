@@ -17,6 +17,9 @@ export default React.createClass({
 	search() {
 		MangaUIActions.search(this.state.fuzzy, React.findDOMNode(this.refs.search).value);
 	},
+	componentDidMount() {
+		React.findDOMNode(this.refs.search).focus();
+	},
 	render() {
 		return (
 			<div>
