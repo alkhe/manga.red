@@ -13,9 +13,5 @@ app
 	.use(serve('public'));
 
 var server = require('http').createServer(app.callback());
-var io = require('socket.io')(server);
 
-module.exports = server.listen(3000, function() {});
-io.on('connection', function(socket) {
-
-});
+module.exports = server.listen(80, function() {});
