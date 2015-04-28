@@ -4,12 +4,14 @@ Manga.IO is a lightning fast web manga reader that utilizes image preloading and
 
 ## Installing
 
-Clone this repository.
+```sh
+$ git clone https://github.com/edge/manga.io
+$ npm install
+```
 
 ## Running
 
 ```sh
-$ npm install
 $ npm run srv
 ```
 
