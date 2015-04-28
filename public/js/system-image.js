@@ -1,0 +1,1 @@
+"use strict";exports.build=!1,exports.fetch=function(t){return new Promise(function(n,e){var o=t.metadata.img=new Image;o.onerror=e,o.onload=function(t){try{delete o.onload}catch(e){o.onload=function(){}}n("")},o.src=t.address})},exports.instantiate=function(t){return t.metadata.img};

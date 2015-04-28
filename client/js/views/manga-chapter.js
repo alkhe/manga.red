@@ -1,18 +1,47 @@
 import React from 'react';
 import { State } from 'react-router';
 import MangaAPIActions from '../actions/manga-api-actions';
+import MangaReadActions from '../actions/manga-read-actions';
 import MangaTitleStore from '../stores/manga-title-store';
 import MangaChapterStore from '../stores/manga-chapter-store';
 import Symbiosis from '../mixins/symbiosis-mixin';
+import DOMEvent from '../mixins/dom-event-mixin';
 import Progress from '../views/progress';
 
+const keys = {
+	end: 35,
+	home: 36,
+	left: 37,
+	right: 39
+};
+
 export default React.createClass({
-	mixins: [State, Symbiosis(MangaChapterStore)],
+	mixins: [State, Symbiosis(MangaChapterStore), DOMEvent($(document.body), 'keydown', 'handleKey')],
 	componentWillMount() {
 		let dep = MangaTitleStore.getState();
 		if (dep.ready) {
 			let params = this.getParams();
 			MangaAPIActions.getChapter(dep.manga, params.chapter);
+		}
+	},
+	handleKey(e) {
+		switch (e.which) {
+			case keys.left:
+				MangaReadActions.readPreviousPage();
+				break;
+			case keys.right:
+				MangaReadActions.readNextPage();
+				break;
+			case keys.home:
+				e.preventDefault();
+				MangaReadActions.readFirstPage();
+				break;
+			case keys.end:
+				e.preventDefault();
+				MangaReadActions.readLastPage();
+				break;
+			default:
+				break;
 		}
 	},
 	componentWillUpdate(nextProps, nextState) {
@@ -30,6 +59,7 @@ export default React.createClass({
 		return (
 			<div className='teal-text'>
 				<Progress loading={this.state.loading} />
+				<h2>Page {this.state.page}</h2>
 				<div className='center-align'>
 					{page}
 				</div>

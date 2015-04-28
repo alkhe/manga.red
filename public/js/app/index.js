@@ -4,6 +4,8 @@ var _slicedToArray = function (arr, i) { if (Array.isArray(arr)) { return arr; }
 
 System.config({ baseURL: './js/' });
 
+System.map.image = 'system-image';
+
 Promise.all(['react', 'react-router', 'app/routes'].map(function (x) {
 	return System['import'](x);
 })).then(function (_ref) {

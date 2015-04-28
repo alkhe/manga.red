@@ -16,6 +16,10 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
+var _MangaReadActions = require('../actions/manga-read-actions');
+
+var _MangaReadActions2 = _interopRequireDefault(_MangaReadActions);
+
 var _MangaTitleStore = require('../stores/manga-title-store');
 
 var _MangaTitleStore2 = _interopRequireDefault(_MangaTitleStore);
@@ -28,19 +32,50 @@ var _Symbiosis = require('../mixins/symbiosis-mixin');
 
 var _Symbiosis2 = _interopRequireDefault(_Symbiosis);
 
+var _DOMEvent = require('../mixins/dom-event-mixin');
+
+var _DOMEvent2 = _interopRequireDefault(_DOMEvent);
+
 var _Progress = require('../views/progress');
 
 var _Progress2 = _interopRequireDefault(_Progress);
 
+var keys = {
+	end: 35,
+	home: 36,
+	left: 37,
+	right: 39
+};
+
 exports['default'] = _React2['default'].createClass({
 	displayName: 'manga-chapter',
 
-	mixins: [_State.State, _Symbiosis2['default'](_MangaChapterStore2['default'])],
+	mixins: [_State.State, _Symbiosis2['default'](_MangaChapterStore2['default']), _DOMEvent2['default']($(document.body), 'keydown', 'handleKey')],
 	componentWillMount: function componentWillMount() {
 		var dep = _MangaTitleStore2['default'].getState();
 		if (dep.ready) {
 			var params = this.getParams();
 			_MangaAPIActions2['default'].getChapter(dep.manga, params.chapter);
+		}
+	},
+	handleKey: function handleKey(e) {
+		switch (e.which) {
+			case keys.left:
+				_MangaReadActions2['default'].readPreviousPage();
+				break;
+			case keys.right:
+				_MangaReadActions2['default'].readNextPage();
+				break;
+			case keys.home:
+				e.preventDefault();
+				_MangaReadActions2['default'].readFirstPage();
+				break;
+			case keys.end:
+				e.preventDefault();
+				_MangaReadActions2['default'].readLastPage();
+				break;
+			default:
+				break;
 		}
 	},
 	componentWillUpdate: function componentWillUpdate(nextProps, nextState) {
@@ -59,6 +94,12 @@ exports['default'] = _React2['default'].createClass({
 			'div',
 			{ className: 'teal-text' },
 			_React2['default'].createElement(_Progress2['default'], { loading: this.state.loading }),
+			_React2['default'].createElement(
+				'h2',
+				null,
+				'Page ',
+				this.state.page
+			),
 			_React2['default'].createElement(
 				'div',
 				{ className: 'center-align' },

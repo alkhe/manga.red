@@ -18,11 +18,18 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
+var _MangaReadActions = require('../actions/manga-read-actions');
+
+var _MangaReadActions2 = _interopRequireDefault(_MangaReadActions);
+
+var images = [];
+
 var MangaChapterStore = (function () {
 	function MangaChapterStore() {
 		_classCallCheck(this, MangaChapterStore);
 
 		this.bindActions(_MangaAPIActions2['default']);
+		this.bindActions(_MangaReadActions2['default']);
 
 		this.page = 0;
 		this.pages = [];
@@ -57,9 +64,37 @@ var MangaChapterStore = (function () {
 		key: 'getChapterComplete',
 		value: function getChapterComplete(pages) {
 			this.pages = pages;
+			images = this.pages.map(function (x) {
+				var img = new Image().src = 'https://cdn.mangaeden.com/mangasimg/' + x[1];
+				return img;
+			});
 
 			this.loading = false;
 			this.ready = true;
+		}
+	}, {
+		key: 'readNextPage',
+		value: function readNextPage() {
+			if (this.page < this.pages.length - 1) {
+				this.page++;
+			}
+		}
+	}, {
+		key: 'readPreviousPage',
+		value: function readPreviousPage() {
+			if (this.page > 0) {
+				this.page--;
+			}
+		}
+	}, {
+		key: 'readFirstPage',
+		value: function readFirstPage() {
+			this.page = 0;
+		}
+	}, {
+		key: 'readLastPage',
+		value: function readLastPage() {
+			this.page = this.pages.length - 1;
 		}
 	}]);
 
