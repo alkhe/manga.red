@@ -1,6 +1,7 @@
 import React from 'react';
 import { State, RouteHandler } from 'react-router';
 import MangaAPIActions from '../actions/manga-api-actions';
+import MangaUIActions from '../actions/manga-ui-actions';
 import MangaIndexStore from '../stores/manga-index-store';
 import MangaTitleStore from '../stores/manga-title-store';
 import Symbiosis from '../mixins/symbiosis-mixin';
@@ -9,6 +10,7 @@ import Progress from '../views/progress';
 export default React.createClass({
 	mixins: [State, Symbiosis(MangaTitleStore)],
 	componentWillMount() {
+		MangaUIActions.toTitle();
 		let dep = MangaIndexStore.getState();
 		if (dep.ready) {
 			let params = this.getParams();

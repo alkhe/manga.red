@@ -21,6 +21,15 @@ class MangaUIActions {
 			this.dispatch(term.length > 0 ? provider.search(term) : []);
 		}, 400);
 	}
+	toIndex() {
+		this.dispatch();
+	}
+	toTitle() {
+		this.dispatch();
+	}
+	toChapter() {
+		this.dispatch();
+	}
 }
 
 export default alt.createActions(MangaUIActions);

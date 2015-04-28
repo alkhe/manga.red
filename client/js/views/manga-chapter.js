@@ -18,6 +18,7 @@ const keys = {
 export default React.createClass({
 	mixins: [State, Symbiosis(MangaChapterStore), DOMEvent($(document.body), 'keydown', 'handleKey')],
 	componentWillMount() {
+		MangaUIActions.toChapter();
 		let dep = MangaTitleStore.getState();
 		if (dep.ready) {
 			let params = this.getParams();

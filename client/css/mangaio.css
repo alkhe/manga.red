@@ -10,3 +10,11 @@ html, body {
 a {
 	text-decoration: none;
 }
+
+.inline {
+	display: inline-block;
+}
+
+.marginless {
+	margin: 0;
+}

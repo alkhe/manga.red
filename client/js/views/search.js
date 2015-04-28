@@ -7,12 +7,15 @@ import Progress from '../views/progress';
 
 export default React.createClass({
 	mixins: [Symbiosis(MangaIndexStore)],
+	componentWillMount() {
+		MangaUIActions.toIndex();
+	},
 	renderManga() {
 		return (this.state.results.length ? this.state.results : this.state.sorted)
 			.slice(0, 20).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
-		MangaUIActions.search(this.state.fuzzy, this.refs.search.getDOMNode().value);
+		MangaUIActions.search(this.state.fuzzy, React.findDOMNode(this.refs.search).value);
 	},
 	render() {
 		return (
