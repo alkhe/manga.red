@@ -14,4 +14,4 @@ app
 
 var server = require('http').createServer(app.callback());
 
-module.exports = server.listen(80, function() {});
+module.exports = server.listen(process.env.PORT || 80, function() {});
