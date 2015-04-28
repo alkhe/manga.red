@@ -18,9 +18,9 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
-var _MangaReadActions = require('../actions/manga-read-actions');
+var _MangaUIActions = require('../actions/manga-ui-actions');
 
-var _MangaReadActions2 = _interopRequireDefault(_MangaReadActions);
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
 
 var images = [];
 
@@ -29,7 +29,7 @@ var MangaChapterStore = (function () {
 		_classCallCheck(this, MangaChapterStore);
 
 		this.bindActions(_MangaAPIActions2['default']);
-		this.bindActions(_MangaReadActions2['default']);
+		this.bindActions(_MangaUIActions2['default']);
 
 		this.page = 0;
 		this.pages = [];
@@ -63,6 +63,7 @@ var MangaChapterStore = (function () {
 	}, {
 		key: 'getChapterComplete',
 		value: function getChapterComplete(pages) {
+			this.page = 0;
 			this.pages = pages;
 			images = this.pages.map(function (x) {
 				var img = new Image().src = 'https://cdn.mangaeden.com/mangasimg/' + x[1];

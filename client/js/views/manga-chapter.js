@@ -1,7 +1,7 @@
 import React from 'react';
 import { State } from 'react-router';
 import MangaAPIActions from '../actions/manga-api-actions';
-import MangaReadActions from '../actions/manga-read-actions';
+import MangaUIActions from '../actions/manga-ui-actions';
 import MangaTitleStore from '../stores/manga-title-store';
 import MangaChapterStore from '../stores/manga-chapter-store';
 import Symbiosis from '../mixins/symbiosis-mixin';
@@ -27,18 +27,18 @@ export default React.createClass({
 	handleKey(e) {
 		switch (e.which) {
 			case keys.left:
-				MangaReadActions.readPreviousPage();
+				MangaUIActions.readPreviousPage();
 				break;
 			case keys.right:
-				MangaReadActions.readNextPage();
+				MangaUIActions.readNextPage();
 				break;
 			case keys.home:
 				e.preventDefault();
-				MangaReadActions.readFirstPage();
+				MangaUIActions.readFirstPage();
 				break;
 			case keys.end:
 				e.preventDefault();
-				MangaReadActions.readLastPage();
+				MangaUIActions.readLastPage();
 				break;
 			default:
 				break;

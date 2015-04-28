@@ -14,6 +14,8 @@ var _alt = require('../alt');
 
 var _alt2 = _interopRequireDefault(_alt);
 
+var lastSearch = null;
+
 var MangaUIActions = (function () {
 	function MangaUIActions() {
 		_classCallCheck(this, MangaUIActions);
@@ -38,6 +40,16 @@ var MangaUIActions = (function () {
 		key: 'readLastPage',
 		value: function readLastPage() {
 			this.dispatch();
+		}
+	}, {
+		key: 'search',
+		value: function search(provider, term) {
+			var _this = this;
+
+			clearTimeout(lastSearch);
+			_.delay(function () {
+				_this.dispatch(term.length > 0 ? provider.search(term) : []);
+			}, 500);
 		}
 	}]);
 

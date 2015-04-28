@@ -16,9 +16,9 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
-var _MangaReadActions = require('../actions/manga-read-actions');
+var _MangaUIActions = require('../actions/manga-ui-actions');
 
-var _MangaReadActions2 = _interopRequireDefault(_MangaReadActions);
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
 
 var _MangaTitleStore = require('../stores/manga-title-store');
 
@@ -61,18 +61,18 @@ exports['default'] = _React2['default'].createClass({
 	handleKey: function handleKey(e) {
 		switch (e.which) {
 			case keys.left:
-				_MangaReadActions2['default'].readPreviousPage();
+				_MangaUIActions2['default'].readPreviousPage();
 				break;
 			case keys.right:
-				_MangaReadActions2['default'].readNextPage();
+				_MangaUIActions2['default'].readNextPage();
 				break;
 			case keys.home:
 				e.preventDefault();
-				_MangaReadActions2['default'].readFirstPage();
+				_MangaUIActions2['default'].readFirstPage();
 				break;
 			case keys.end:
 				e.preventDefault();
-				_MangaReadActions2['default'].readLastPage();
+				_MangaUIActions2['default'].readLastPage();
 				break;
 			default:
 				break;

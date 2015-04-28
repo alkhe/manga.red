@@ -1,13 +1,13 @@
 import alt from '../alt';
 import MangaAPIActions from '../actions/manga-api-actions';
-import MangaReadActions from '../actions/manga-read-actions';
+import MangaUIActions from '../actions/manga-ui-actions';
 
 let images = [];
 
 class MangaChapterStore {
 	constructor() {
 		this.bindActions(MangaAPIActions);
-		this.bindActions(MangaReadActions);
+		this.bindActions(MangaUIActions);
 
 		this.page = 0;
 		this.pages = [];
@@ -30,6 +30,7 @@ class MangaChapterStore {
 		this.run = false;
 	}
 	getChapterComplete(pages) {
+		this.page = 0;
 		this.pages = pages;
 		images = this.pages.map(x => {
 			let img = (new Image()).src = `https://cdn.mangaeden.com/mangasimg/${x[1]}`;

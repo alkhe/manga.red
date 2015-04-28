@@ -18,14 +18,21 @@ var _MangaAPIActions = require('../actions/manga-api-actions');
 
 var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
 
+var _MangaUIActions = require('../actions/manga-ui-actions');
+
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
+
 var MangaIndexStore = (function () {
 	function MangaIndexStore() {
 		_classCallCheck(this, MangaIndexStore);
 
 		this.bindActions(_MangaAPIActions2['default']);
+		this.bindActions(_MangaUIActions2['default']);
 
 		this.all = [];
 		this.sorted = [];
+		this.fuzzy = null;
+		this.results = [];
 
 		this.loading = false;
 		this.ready = false;
@@ -43,9 +50,15 @@ var MangaIndexStore = (function () {
 			this.sorted = list.sort(function (a, b) {
 				return b.h - a.h;
 			});
+			this.fuzzy = new Fuse(this.sorted, { keys: ['t'] });
 
 			this.loading = false;
 			this.ready = true;
+		}
+	}, {
+		key: 'search',
+		value: function search(results) {
+			this.results = results;
 		}
 	}]);
 
