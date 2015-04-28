@@ -8,7 +8,10 @@ Clone this repository.
 
 ## Running
 
-`$ npm run srv`
+```sh
+$ npm install
+$ npm run srv
+```
 
 ## Developing
 

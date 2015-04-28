@@ -59,7 +59,7 @@ export default React.createClass({
 		return (
 			<div className='teal-text'>
 				<Progress loading={this.state.loading} />
-				<h2>Page {this.state.page}</h2>
+				<h2 className='grey-text text-darken-3'>Page {this.state.page}</h2>
 				<div className='center-align'>
 					{page}
 				</div>

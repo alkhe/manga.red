@@ -1,13 +1,1 @@
-html, body {
-	margin: 0 auto;
-	padding: 0;
-	background: #222;
-}
-
-* {
-	outline: none !important;
-}
-
-a {
-	text-decoration: none;
-}
+html,body{margin:0 auto;padding:0}*{outline:none!important}a{text-decoration:none}

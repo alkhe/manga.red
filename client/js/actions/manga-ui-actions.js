@@ -17,9 +17,9 @@ class MangaUIActions {
 	}
 	search(provider, term) {
 		clearTimeout(lastSearch);
-		_.delay(() => {
+		lastSearch = _.delay(() => {
 			this.dispatch(term.length > 0 ? provider.search(term) : []);
-		}, 500);
+		}, 400);
 	}
 }
 

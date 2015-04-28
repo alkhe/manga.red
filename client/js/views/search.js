@@ -9,7 +9,7 @@ export default React.createClass({
 	mixins: [Symbiosis(MangaIndexStore)],
 	renderManga() {
 		return (this.state.results.length ? this.state.results : this.state.sorted)
-			.slice(0, 20).map(m => <MangaCard manga={m} />);
+			.slice(0, 20).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
 		MangaUIActions.search(this.state.fuzzy, this.refs.search.getDOMNode().value);
@@ -22,6 +22,7 @@ export default React.createClass({
 					<input type='text' ref='search' onChange={this.search} />
 					<label>Search titles</label>
 				</div>
+				<h2 className='grey-text text-darken-3'>{this.state.results.length ? this.state.results.length : this.state.sorted.length } titles</h2>
 				<div className='row'>
 					{this.renderManga()}
 				</div>
