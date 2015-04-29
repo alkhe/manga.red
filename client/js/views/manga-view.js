@@ -12,17 +12,17 @@ export default React.createClass({
 	mixins: [State, Symbiosis(MangaTitleStore)],
 	componentWillMount() {
 		MangaUIActions.toTitle();
-		let dep = MangaIndexStore.getState();
-		if (dep.ready) {
+		let index = MangaIndexStore.getState();
+		if (index.process == Process.Done) {
 			let params = this.getParams();
-			MangaAPIActions.getManga(dep.all, params.alias);
+			MangaAPIActions.getManga(index.all, params.alias);
 		}
 	},
 	componentWillUpdate(nextProps, nextState) {
 		if (nextState.process == Process.Ready) {
 			let params = this.getParams();
-			let dep = MangaIndexStore.getState();
-			MangaAPIActions.getManga.defer(dep.all, params.alias);
+			let index = MangaIndexStore.getState();
+			MangaAPIActions.getManga.defer(index.all, params.alias);
 		}
 	},
 	render() {

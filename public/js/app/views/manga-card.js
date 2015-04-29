@@ -24,7 +24,7 @@ exports['default'] = _React2['default'].createClass({
 			{ to: 'manga', params: { alias: m.a } },
 			_React2['default'].createElement(
 				'div',
-				{ className: 'col s6' },
+				{ className: 'col s3' },
 				_React2['default'].createElement(
 					'div',
 					{ className: 'card large teal z-depth-2 animated fadeIn' },
@@ -38,7 +38,7 @@ exports['default'] = _React2['default'].createClass({
 						{ className: 'card-content teal-text text-lighten-4' },
 						_React2['default'].createElement(
 							'span',
-							{ className: 'card-title' },
+							{ className: 'card-title truncate' },
 							m.t
 						),
 						_React2['default'].createElement(

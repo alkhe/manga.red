@@ -46,17 +46,17 @@ exports['default'] = _React2['default'].createClass({
 	mixins: [_State$RouteHandler.State, _Symbiosis2['default'](_MangaTitleStore2['default'])],
 	componentWillMount: function componentWillMount() {
 		_MangaUIActions2['default'].toTitle();
-		var dep = _MangaIndexStore2['default'].getState();
-		if (dep.ready) {
+		var index = _MangaIndexStore2['default'].getState();
+		if (index.process == _Process2['default'].Done) {
 			var params = this.getParams();
-			_MangaAPIActions2['default'].getManga(dep.all, params.alias);
+			_MangaAPIActions2['default'].getManga(index.all, params.alias);
 		}
 	},
 	componentWillUpdate: function componentWillUpdate(nextProps, nextState) {
 		if (nextState.process == _Process2['default'].Ready) {
 			var params = this.getParams();
-			var dep = _MangaIndexStore2['default'].getState();
-			_MangaAPIActions2['default'].getManga.defer(dep.all, params.alias);
+			var index = _MangaIndexStore2['default'].getState();
+			_MangaAPIActions2['default'].getManga.defer(index.all, params.alias);
 		}
 	},
 	render: function render() {
