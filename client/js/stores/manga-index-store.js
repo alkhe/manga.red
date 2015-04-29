@@ -1,6 +1,7 @@
 import alt from '../alt';
 import MangaAPIActions from '../actions/manga-api-actions';
 import MangaUIActions from '../actions/manga-ui-actions';
+import Process from '../constants/process-constants';
 
 class MangaIndexStore {
 	constructor() {
@@ -12,19 +13,17 @@ class MangaIndexStore {
 		this.fuzzy = null;
 		this.results = [];
 
-		this.loading = false;
-		this.ready = false;
+		this.process = Process.Before;
 	}
 	getAllManga() {
-		this.loading = true;
+		this.process = Process.Working;
 	}
 	getAllMangaComplete(list) {
 		this.all = list;
 		this.sorted = list.sort((a, b) => b.h - a.h);
 		this.fuzzy = new Fuse(this.sorted, { keys: ['t'], threshold: .36, distance: 6 });
 
-		this.loading = false;
-		this.ready = true;
+		this.process = Process.Done;
 	}
 	search(results) {
 		this.results = results;

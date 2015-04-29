@@ -1,5 +1,6 @@
 import alt from '../alt';
 import MangaAPIActions from '../actions/manga-api-actions';
+import Process from '../constants/process-constants';
 
 class MangaTitleStore {
 	constructor() {
@@ -7,25 +8,21 @@ class MangaTitleStore {
 
 		this.manga = {};
 
-		this.loading = false;
-		this.ready = false;
-		this.run = false;
+		this.process = Process.Before;
 	}
 	getAllManga() {
-		this.loading = true;
+		this.process = Process.Waiting;
 	}
 	getAllMangaComplete() {
-		this.run = true;
+		this.process = Process.Ready;
 	}
 	getManga() {
-		this.loading = true;
-		this.run = false;
+		this.process = Process.Working;
 	}
 	getMangaComplete(manga) {
 		this.manga = manga;
 
-		this.loading = false;
-		this.ready = true;
+		this.process = Process.Done;
 	}
 }
 

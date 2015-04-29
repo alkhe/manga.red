@@ -1,1 +1,66 @@
-"use strict";var _interopRequireDefault=function(e){return e&&e.__esModule?e:{"default":e}};Object.defineProperty(exports,"__esModule",{value:!0});var _React=require("react"),_React2=_interopRequireDefault(_React),_State$RouteHandler=require("react-router"),_MangaAPIActions=require("../actions/manga-api-actions"),_MangaAPIActions2=_interopRequireDefault(_MangaAPIActions),_MangaUIActions=require("../actions/manga-ui-actions"),_MangaUIActions2=_interopRequireDefault(_MangaUIActions),_MangaIndexStore=require("../stores/manga-index-store"),_MangaIndexStore2=_interopRequireDefault(_MangaIndexStore),_MangaTitleStore=require("../stores/manga-title-store"),_MangaTitleStore2=_interopRequireDefault(_MangaTitleStore),_Symbiosis=require("../mixins/symbiosis-mixin"),_Symbiosis2=_interopRequireDefault(_Symbiosis),_Progress=require("../views/progress"),_Progress2=_interopRequireDefault(_Progress);exports["default"]=_React2["default"].createClass({displayName:"manga-view",mixins:[_State$RouteHandler.State,_Symbiosis2["default"](_MangaTitleStore2["default"])],componentWillMount:function(){_MangaUIActions2["default"].toTitle();var e=_MangaIndexStore2["default"].getState();if(e.ready){var a=this.getParams();_MangaAPIActions2["default"].getManga(e.all,a.alias)}},componentWillUpdate:function(e,a){if(a.run){var t=this.getParams(),r=_MangaIndexStore2["default"].getState();_MangaAPIActions2["default"].getManga.defer(r.all,t.alias)}},render:function(){return _React2["default"].createElement(_State$RouteHandler.RouteHandler,null)}}),module.exports=exports["default"];
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _React = require('react');
+
+var _React2 = _interopRequireDefault(_React);
+
+var _State$RouteHandler = require('react-router');
+
+var _MangaAPIActions = require('../actions/manga-api-actions');
+
+var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
+
+var _MangaUIActions = require('../actions/manga-ui-actions');
+
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
+
+var _MangaIndexStore = require('../stores/manga-index-store');
+
+var _MangaIndexStore2 = _interopRequireDefault(_MangaIndexStore);
+
+var _MangaTitleStore = require('../stores/manga-title-store');
+
+var _MangaTitleStore2 = _interopRequireDefault(_MangaTitleStore);
+
+var _Symbiosis = require('../mixins/symbiosis-mixin');
+
+var _Symbiosis2 = _interopRequireDefault(_Symbiosis);
+
+var _Progress = require('../views/progress');
+
+var _Progress2 = _interopRequireDefault(_Progress);
+
+var _Process = require('../constants/process-constants');
+
+var _Process2 = _interopRequireDefault(_Process);
+
+exports['default'] = _React2['default'].createClass({
+	displayName: 'manga-view',
+
+	mixins: [_State$RouteHandler.State, _Symbiosis2['default'](_MangaTitleStore2['default'])],
+	componentWillMount: function componentWillMount() {
+		_MangaUIActions2['default'].toTitle();
+		var dep = _MangaIndexStore2['default'].getState();
+		if (dep.ready) {
+			var params = this.getParams();
+			_MangaAPIActions2['default'].getManga(dep.all, params.alias);
+		}
+	},
+	componentWillUpdate: function componentWillUpdate(nextProps, nextState) {
+		if (nextState.process == _Process2['default'].Ready) {
+			var params = this.getParams();
+			var dep = _MangaIndexStore2['default'].getState();
+			_MangaAPIActions2['default'].getManga.defer(dep.all, params.alias);
+		}
+	},
+	render: function render() {
+		return _React2['default'].createElement(_State$RouteHandler.RouteHandler, null);
+	}
+});
+module.exports = exports['default'];

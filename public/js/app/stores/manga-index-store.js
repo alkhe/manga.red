@@ -1,1 +1,71 @@
-"use strict";var _interopRequireDefault=function(e){return e&&e.__esModule?e:{"default":e}},_classCallCheck=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},_createClass=function(){function e(e,t){for(var a=0;a<t.length;a++){var n=t[a];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,a,n){return a&&e(t.prototype,a),n&&e(t,n),t}}();Object.defineProperty(exports,"__esModule",{value:!0});var _alt=require("../alt"),_alt2=_interopRequireDefault(_alt),_MangaAPIActions=require("../actions/manga-api-actions"),_MangaAPIActions2=_interopRequireDefault(_MangaAPIActions),_MangaUIActions=require("../actions/manga-ui-actions"),_MangaUIActions2=_interopRequireDefault(_MangaUIActions),MangaIndexStore=function(){function e(){_classCallCheck(this,e),this.bindActions(_MangaAPIActions2["default"]),this.bindActions(_MangaUIActions2["default"]),this.all=[],this.sorted=[],this.fuzzy=null,this.results=[],this.loading=!1,this.ready=!1}return _createClass(e,[{key:"getAllManga",value:function(){this.loading=!0}},{key:"getAllMangaComplete",value:function(e){this.all=e,this.sorted=e.sort(function(e,t){return t.h-e.h}),this.fuzzy=new Fuse(this.sorted,{keys:["t"],threshold:.36,distance:6}),this.loading=!1,this.ready=!0}},{key:"search",value:function(e){this.results=e}}]),e}();exports["default"]=_alt2["default"].createStore(MangaIndexStore,"MangaIndexStore"),module.exports=exports["default"];
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _MangaAPIActions = require('../actions/manga-api-actions');
+
+var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
+
+var _MangaUIActions = require('../actions/manga-ui-actions');
+
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
+
+var _Process = require('../constants/process-constants');
+
+var _Process2 = _interopRequireDefault(_Process);
+
+var MangaIndexStore = (function () {
+	function MangaIndexStore() {
+		_classCallCheck(this, MangaIndexStore);
+
+		this.bindActions(_MangaAPIActions2['default']);
+		this.bindActions(_MangaUIActions2['default']);
+
+		this.all = [];
+		this.sorted = [];
+		this.fuzzy = null;
+		this.results = [];
+
+		this.process = _Process2['default'].Before;
+	}
+
+	_createClass(MangaIndexStore, [{
+		key: 'getAllManga',
+		value: function getAllManga() {
+			this.process = _Process2['default'].Working;
+		}
+	}, {
+		key: 'getAllMangaComplete',
+		value: function getAllMangaComplete(list) {
+			this.all = list;
+			this.sorted = list.sort(function (a, b) {
+				return b.h - a.h;
+			});
+			this.fuzzy = new Fuse(this.sorted, { keys: ['t'], threshold: 0.36, distance: 6 });
+
+			this.process = _Process2['default'].Done;
+		}
+	}, {
+		key: 'search',
+		value: function search(results) {
+			this.results = results;
+		}
+	}]);
+
+	return MangaIndexStore;
+})();
+
+exports['default'] = _alt2['default'].createStore(MangaIndexStore, 'MangaIndexStore');
+module.exports = exports['default'];

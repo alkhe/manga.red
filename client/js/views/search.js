@@ -4,6 +4,7 @@ import MangaUIActions from '../actions/manga-ui-actions';
 import MangaIndexStore from '../stores/manga-index-store';
 import MangaCard from '../views/manga-card';
 import Progress from '../views/progress';
+import Process from '../constants/process-constants';
 
 export default React.createClass({
 	mixins: [Symbiosis(MangaIndexStore)],
@@ -23,7 +24,7 @@ export default React.createClass({
 	render() {
 		return (
 			<div>
-				<Progress loading={this.state.loading} />
+				<Progress loading={Process.Loading(this.state.process)} />
 				<div className='input-field teal-text text-lighten-4'>
 					<input type='text' ref='search' onChange={this.search} />
 					<label>Search titles</label>

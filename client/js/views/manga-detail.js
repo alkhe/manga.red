@@ -3,12 +3,13 @@ import { Link, State } from 'react-router';
 import Symbiosis from '../mixins/symbiosis-mixin';
 import MangaTitleStore from '../stores/manga-title-store';
 import Progress from '../views/progress';
+import Process from '../constants/process-constants';
 
 export default React.createClass({
 	mixins: [State, Symbiosis(MangaTitleStore)],
 	renderDetail() {
 		let detail;
-		if (this.state.ready && !this.state.loading) {
+		if (this.state.process == Process.Done) {
 			let chapters = this.state.manga.chapters.map(c =>
 				<Link to='chapter' params={{ alias: this.getParams().alias, chapter: c[0] }} className='collection-item'>
 					{c[2]}
@@ -29,7 +30,7 @@ export default React.createClass({
 	render() {
 		return (
 			<div>
-				<Progress loading={this.state.loading} />
+				<Progress loading={Process.Loading(this.state.process)} />
 				<div className='teal-text'>
 					{this.renderDetail()}
 				</div>
