@@ -18,3 +18,15 @@ a {
 .marginless {
 	margin: 0;
 }
+
+.fixed-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.widemargin {
+	margin-left: 15px;
+	margin-right: 15px;
+}

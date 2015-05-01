@@ -30,17 +30,21 @@ export default React.createClass({
 		switch (e.which) {
 			case keys.left:
 				MangaUIActions.readPreviousPage();
+				document.body.scrollTop = 0;
 				break;
 			case keys.right:
 				MangaUIActions.readNextPage();
+				document.body.scrollTop = 0;
 				break;
 			case keys.home:
 				e.preventDefault();
 				MangaUIActions.readFirstPage();
+				document.body.scrollTop = 0;
 				break;
 			case keys.end:
 				e.preventDefault();
 				MangaUIActions.readLastPage();
+				document.body.scrollTop = 0;
 				break;
 			default:
 				break;
@@ -56,7 +60,7 @@ export default React.createClass({
 	render() {
 		let page;
 		if (this.state.process == Process.Done) {
-			page = <img src={`https://cdn.mangaeden.com/mangasimg/${this.state.pages[this.state.pages.length - this.state.page - 1][1]}`} />;
+			page = <img style={{ width: '60vw' }} src={`https://cdn.mangaeden.com/mangasimg/${this.state.pages[this.state.pages.length - this.state.page - 1][1]}`} />;
 		}
 		return (
 			<div className='teal-text'>

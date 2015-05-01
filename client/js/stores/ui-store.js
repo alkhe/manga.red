@@ -1,7 +1,7 @@
 import alt from '../alt';
 import MangaUIActions from '../actions/manga-ui-actions';
 
-export const State = {
+export const UIState = {
 	index: 0,
 	title: 1,
 	chapter: 2
@@ -11,16 +11,16 @@ class UIStore {
 	constructor() {
 		this.bindActions(MangaUIActions);
 
-		this.state = State.index;
+		this.state = UIState.index;
 	}
 	toIndex() {
-		this.state = State.index;
+		this.state = UIState.index;
 	}
 	toTitle() {
-		this.state = State.title;
+		this.state = UIState.title;
 	}
 	toChapter() {
-		this.state = State.chapter;
+		this.state = UIState.chapter;
 	}
 }
 
