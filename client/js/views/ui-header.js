@@ -1,8 +1,8 @@
 import React from 'react';
-import MangaUIActions from '../actions/manga-ui-actions';
 import UIStore, { UIState } from '../stores/ui-store';
 // import MangaTitleStore from '../stores/manga-title-store';
 // import MangaChapterStore from '../stores/manga-chapter-store';
+import MangaUIActions from '../actions/manga-ui-actions';
 import Symbiosis from '../mixins/symbiosis-mixin';
 
 export default React.createClass({
@@ -52,8 +52,8 @@ export default React.createClass({
 					[MangaUIActions.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
 					[MangaUIActions.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
 					[MangaUIActions.readLastPage, 'Last Page (End)', 'av-skip-next']
-				].map(arr => (
-					<li onClick={arr[0]} className='tooltipped'
+				].map((arr, i) => (
+					<li onClick={arr[0]} key={i} className='tooltipped'
 						data-tooltip={arr[1]} data-position='left'>
 						<i className={`widemargin mdi-${arr[2]}`}></i>
 					</li>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, State } from 'react-router';
+import MangaUIActions from '../actions/manga-ui-actions';
 import Symbiosis from '../mixins/symbiosis-mixin';
 import MangaTitleStore from '../stores/manga-title-store';
 import Progress from '../views/progress';
@@ -7,11 +8,14 @@ import Process from '../constants/process-constants';
 
 export default React.createClass({
 	mixins: [State, Symbiosis(MangaTitleStore)],
+	componentWillMount() {
+		MangaUIActions.toTitle();
+	},
 	renderDetail() {
 		let detail;
 		if (this.state.process == Process.Done) {
 			let chapters = this.state.manga.chapters.map(c =>
-				<Link to='chapter' params={{ alias: this.getParams().alias, chapter: c[0] }} className='collection-item'>
+				<Link to='chapter' params={{ alias: this.getParams().alias, chapter: c[0] }} key={c[0]} className='collection-item'>
 					{c[2]}
 				</Link>
 			);

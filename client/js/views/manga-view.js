@@ -11,7 +11,6 @@ import Process from '../constants/process-constants';
 export default React.createClass({
 	mixins: [State, Symbiosis(MangaTitleStore)],
 	componentWillMount() {
-		MangaUIActions.toTitle();
 		let index = MangaIndexStore.getState();
 		if (index.process == Process.Done) {
 			let params = this.getParams();
