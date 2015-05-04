@@ -1,1 +1,69 @@
-"use strict";var _interopRequireDefault=function(e){return e&&e.__esModule?e:{"default":e}},_classCallCheck=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},_createClass=function(){function e(e,t){for(var n=0;n<t.length;n++){var a=t[n];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,n,a){return n&&e(t.prototype,n),a&&e(t,a),t}}();Object.defineProperty(exports,"__esModule",{value:!0});var _alt=require("../alt"),_alt2=_interopRequireDefault(_alt),_MangaAPIActions=require("../actions/manga-api-actions"),_MangaAPIActions2=_interopRequireDefault(_MangaAPIActions),_MangaUIActions=require("../actions/manga-ui-actions"),_MangaUIActions2=_interopRequireDefault(_MangaUIActions),_Process=require("../constants/process-constants"),_Process2=_interopRequireDefault(_Process),MangaIndexStore=function(){function e(){_classCallCheck(this,e),this.bindActions(_MangaAPIActions2["default"]),this.bindActions(_MangaUIActions2["default"]),this.all=[],this.sorted=[],this.fuzzy=null,this.results=null,this.process=_Process2["default"].Before}return _createClass(e,[{key:"getAllManga",value:function(){this.process=_Process2["default"].Working}},{key:"getAllMangaComplete",value:function(e){this.all=e,this.sorted=e.sort(function(e,t){return t.h-e.h}),this.fuzzy=new Fuse(this.sorted,{keys:["t"],threshold:.36,distance:6}),this.process=_Process2["default"].Done}},{key:"search",value:function(e){this.results=e}}]),e}();exports["default"]=_alt2["default"].createStore(MangaIndexStore,"MangaIndexStore"),module.exports=exports["default"];
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _MangaAPIActions = require('../actions/manga-api-actions');
+
+var _MangaAPIActions2 = _interopRequireDefault(_MangaAPIActions);
+
+var _MangaUIActions = require('../actions/manga-ui-actions');
+
+var _MangaUIActions2 = _interopRequireDefault(_MangaUIActions);
+
+var _Process = require('../constants/process-constants');
+
+var _Process2 = _interopRequireDefault(_Process);
+
+var MangaIndexStore = (function () {
+	function MangaIndexStore() {
+		_classCallCheck(this, MangaIndexStore);
+
+		this.bindActions(_MangaAPIActions2['default']);
+		this.bindActions(_MangaUIActions2['default']);
+
+		this.all = [];
+		this.sorted = [];
+		this.fuzzy = null;
+		this.results = null;
+
+		this.process = _Process2['default'].Before;
+	}
+
+	_createClass(MangaIndexStore, [{
+		key: 'getAllManga',
+		value: function getAllManga() {
+			this.process = _Process2['default'].Working;
+		}
+	}, {
+		key: 'getAllMangaComplete',
+		value: function getAllMangaComplete(list) {
+			this.all = list;
+			this.sorted = _.sortByOrder(list, 'h', false);
+			this.fuzzy = new Fuse(this.sorted, { keys: ['t'], threshold: 0.36, distance: 6 });
+
+			this.process = _Process2['default'].Done;
+		}
+	}, {
+		key: 'search',
+		value: function search(results) {
+			this.results = results;
+		}
+	}]);
+
+	return MangaIndexStore;
+})();
+
+exports['default'] = _alt2['default'].createStore(MangaIndexStore, 'MangaIndexStore');
+module.exports = exports['default'];

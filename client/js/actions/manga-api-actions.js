@@ -1,24 +1,38 @@
 import alt from '../alt';
 import reqwest from 'reqwest';
+import Process from '../constants/process-constants';
+
+let indexState = () => alt.getStore('MangaIndexStore').getState();
+let titleState = () => alt.getStore('MangaTitleStore').getState();
+let chapterState = () => alt.getStore('MangaChapterStore').getState();
+
+let emptypromise = () => new Promise(resolve => resolve());
+
+let getAllMangaAPI = () => reqwest({
+	url: 'https://www.mangaeden.com/api/list/0/',
+	crossOrigin: true
+});
+
+let getMangaAPI = (id) => reqwest({
+	url: `https://www.mangaeden.com/api/manga/${id}`,
+	crossOrigin: true
+});
 
 class MangaAPIActions {
 	getAllManga() {
-		reqwest({
-			url: 'https://www.mangaeden.com/api/list/0/',
-			crossOrigin: true,
-			success: this.actions.getAllMangaComplete
-		});
+		getAllMangaAPI().then(this.actions.getAllMangaComplete);
 		this.dispatch();
 	}
 	getAllMangaComplete(res) {
 		this.dispatch(res.manga);
 	}
-	getManga(index, alias) {
-		let manga = _.find(index, _.matchesProperty('a', alias));
-		reqwest({
-			url: `https://www.mangaeden.com/api/manga/${manga.i}`,
-			crossOrigin: true,
-			success: this.actions.getMangaComplete
+	getManga(alias) {
+		(indexState().process < Process.Working
+			? getAllMangaAPI().then(this.actions.getAllMangaComplete)
+			: emptypromise()
+		).then(() => {
+			let manga = _.find(indexState().sorted, _.matchesProperty('a', alias));
+			getMangaAPI(manga.i).then(this.actions.getMangaComplete);
 		});
 		this.dispatch();
 	}
