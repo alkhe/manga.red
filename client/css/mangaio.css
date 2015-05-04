@@ -30,3 +30,12 @@ a {
 	margin-left: 15px;
 	margin-right: 15px;
 }
+
+.noselect {
+	user-select: none;
+	-webkit-touch-callout: none;
+}
+
+.arrow-cursor {
+	cursor: default;
+}

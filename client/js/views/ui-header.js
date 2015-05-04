@@ -64,7 +64,7 @@ export default React.createClass({
 	},
 	render() {
 		return (
-			<div className='navbar-fixed'>
+			<div className='navbar-fixed noselect arrow-cursor'>
 				<nav className='fixed-bottom teal z-depth-0'>
 					<div className='nav-wrapper container'>
 						<ul className='left'>

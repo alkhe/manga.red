@@ -11,7 +11,7 @@ class MangaIndexStore {
 		this.all = [];
 		this.sorted = [];
 		this.fuzzy = null;
-		this.results = [];
+		this.results = null;
 
 		this.process = Process.Before;
 	}

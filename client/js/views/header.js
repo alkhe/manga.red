@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 export default React.createClass({
 	render() {
 		return (
-			<div className='navbar-fixed'>
+			<div className='navbar-fixed noselect arrow-cursor'>
 				<nav className='teal'>
 					<div className='nav-wrapper container'>
 						<Link to='main' className='brand-logo teal-text text-lighten-4'>Manga.IO</Link>
