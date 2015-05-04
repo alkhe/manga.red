@@ -1,11 +1,6 @@
 import alt from '../alt';
+import UIState from '../constants/ui-state-constants';
 import MangaUIActions from '../actions/manga-ui-actions';
-
-export const UIState = {
-	index: 0,
-	title: 1,
-	chapter: 2
-};
 
 class UIStore {
 	constructor() {

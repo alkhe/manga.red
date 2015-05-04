@@ -1,9 +1,6 @@
 import React from 'react';
 import { State } from 'react-router';
-import MangaAPIActions from '../actions/manga-api-actions';
-import MangaUIActions from '../actions/manga-ui-actions';
-import MangaTitleStore from '../stores/manga-title-store';
-import MangaChapterStore from '../stores/manga-chapter-store';
+import { Actions, Stores } from '../hub';
 import Symbiosis from '../mixins/symbiosis-mixin';
 import DOMEvent from '../mixins/dom-event-mixin';
 import Progress from '../views/progress';
@@ -17,33 +14,33 @@ const keys = {
 };
 
 export default React.createClass({
-	mixins: [State, Symbiosis(MangaChapterStore), DOMEvent($(document.body), 'keydown', 'handleKey')],
+	mixins: [State, Symbiosis(Stores.MangaChapter), DOMEvent($(document.body), 'keydown', 'handleKey')],
 	componentWillMount() {
-		MangaUIActions.toChapter();
-		let dep = MangaTitleStore.getState();
+		Actions.MangaUI.toChapter();
+		let dep = Stores.MangaTitle.getState();
 		if (dep.process == Process.Done) {
 			let params = this.getParams();
-			MangaAPIActions.getChapter(dep.manga, params.chapter);
+			Actions.MangaAPI.getChapter(dep.manga, params.chapter);
 		}
 	},
 	handleKey(e) {
 		switch (e.which) {
 			case keys.left:
-				MangaUIActions.readPreviousPage();
+				Actions.MangaUI.readPreviousPage();
 				document.body.scrollTop = 0;
 				break;
 			case keys.right:
-				MangaUIActions.readNextPage();
+				Actions.MangaUI.readNextPage();
 				document.body.scrollTop = 0;
 				break;
 			case keys.home:
 				e.preventDefault();
-				MangaUIActions.readFirstPage();
+				Actions.MangaUI.readFirstPage();
 				document.body.scrollTop = 0;
 				break;
 			case keys.end:
 				e.preventDefault();
-				MangaUIActions.readLastPage();
+				Actions.MangaUI.readLastPage();
 				document.body.scrollTop = 0;
 				break;
 			default:
@@ -53,8 +50,8 @@ export default React.createClass({
 	componentWillUpdate(nextProps, nextState) {
 		if (nextState.process == Process.Ready) {
 			let params = this.getParams();
-			let dep = MangaTitleStore.getState();
-			MangaAPIActions.getChapter.defer(dep.manga, params.chapter);
+			let dep = Stores.MangaTitle.getState();
+			Actions.MangaAPI.getChapter.defer(dep.manga, params.chapter);
 		}
 	},
 	render() {

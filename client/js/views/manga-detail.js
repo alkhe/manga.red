@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link, State } from 'react-router';
-import MangaUIActions from '../actions/manga-ui-actions';
+import { Actions, Stores } from '../hub';
 import Symbiosis from '../mixins/symbiosis-mixin';
-import MangaTitleStore from '../stores/manga-title-store';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
 export default React.createClass({
-	mixins: [State, Symbiosis(MangaTitleStore)],
+	mixins: [State, Symbiosis(Stores.MangaTitle)],
 	componentWillMount() {
-		MangaUIActions.toTitle();
+		Actions.MangaUI.toTitle();
 	},
 	renderDetail() {
 		let detail;

@@ -1,15 +1,14 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
-import MangaAPIActions from './actions/manga-api-actions';
+import { Actions, Stores } from './hub';
 import Header from './views/header';
 import UIHeader from './views/ui-header';
-import UIStore, { UIState } from './stores/ui-store';
 import Symbiosis from './mixins/symbiosis-mixin';
 
 export default React.createClass({
-	mixins: [Symbiosis(UIStore)],
+	mixins: [Symbiosis(Stores.UI)],
 	componentWillMount() {
-		MangaAPIActions.getAllManga();
+		Actions.MangaAPI.getAllManga();
 	},
 	renderHeader() {
 		// return (this.state.state != UIState.chapter)

@@ -1,22 +1,21 @@
 import React from 'react';
 import Symbiosis from '../mixins/symbiosis-mixin';
-import MangaUIActions from '../actions/manga-ui-actions';
-import MangaIndexStore from '../stores/manga-index-store';
+import { Actions, Stores } from '../hub';
 import MangaCard from '../views/manga-card';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
 export default React.createClass({
-	mixins: [Symbiosis(MangaIndexStore)],
+	mixins: [Symbiosis(Stores.MangaIndex)],
 	componentWillMount() {
-		MangaUIActions.toIndex();
+		Actions.MangaUI.toIndex();
 	},
 	renderManga() {
 		return (this.state.results.length ? this.state.results : this.state.sorted)
 			.slice(0, 20).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
-		MangaUIActions.search(this.state.fuzzy, React.findDOMNode(this.refs.search).value);
+		Actions.MangaUI.search(this.state.fuzzy, React.findDOMNode(this.refs.search).value);
 	},
 	componentDidMount() {
 		React.findDOMNode(this.refs.search).focus();

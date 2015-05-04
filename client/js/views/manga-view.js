@@ -1,27 +1,24 @@
 import React from 'react';
 import { State, RouteHandler } from 'react-router';
-import MangaAPIActions from '../actions/manga-api-actions';
-import MangaUIActions from '../actions/manga-ui-actions';
-import MangaIndexStore from '../stores/manga-index-store';
-import MangaTitleStore from '../stores/manga-title-store';
+import { Actions, Stores } from '../hub';
 import Symbiosis from '../mixins/symbiosis-mixin';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
 export default React.createClass({
-	mixins: [State, Symbiosis(MangaTitleStore)],
+	mixins: [State, Symbiosis(Stores.MangaTitle)],
 	componentWillMount() {
-		let index = MangaIndexStore.getState();
+		let index = Stores.MangaIndex.getState();
 		if (index.process == Process.Done) {
 			let params = this.getParams();
-			MangaAPIActions.getManga(index.all, params.alias);
+			Actions.MangaAPI.getManga(index.all, params.alias);
 		}
 	},
 	componentWillUpdate(nextProps, nextState) {
 		if (nextState.process == Process.Ready) {
 			let params = this.getParams();
-			let index = MangaIndexStore.getState();
-			MangaAPIActions.getManga.defer(index.all, params.alias);
+			let index = Stores.MangaIndex.getState();
+			Actions.MangaAPI.getManga.defer(index.all, params.alias);
 		}
 	},
 	render() {

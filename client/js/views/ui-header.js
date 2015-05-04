@@ -1,12 +1,10 @@
 import React from 'react';
-import UIStore, { UIState } from '../stores/ui-store';
-// import MangaTitleStore from '../stores/manga-title-store';
-// import MangaChapterStore from '../stores/manga-chapter-store';
-import MangaUIActions from '../actions/manga-ui-actions';
+import { Actions, Stores } from '../hub';
+import UIState from '../constants/ui-state-constants';
 import Symbiosis from '../mixins/symbiosis-mixin';
 
 export default React.createClass({
-	mixins: [Symbiosis(UIStore)],
+	mixins: [Symbiosis(Stores.UI)],
 	componentDidMount() {
 		this.componentDidUpdate();
 	},
@@ -48,10 +46,10 @@ export default React.createClass({
 				break;
 			case UIState.chapter:
 				extra = [
-					[MangaUIActions.readFirstPage, 'First Page (Home)', 'av-skip-previous'],
-					[MangaUIActions.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
-					[MangaUIActions.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
-					[MangaUIActions.readLastPage, 'Last Page (End)', 'av-skip-next']
+					[Actions.MangaUI.readFirstPage, 'First Page (Home)', 'av-skip-previous'],
+					[Actions.MangaUI.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
+					[Actions.MangaUI.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
+					[Actions.MangaUI.readLastPage, 'Last Page (End)', 'av-skip-next']
 				].map((arr, i) => (
 					<li onClick={arr[0]} key={i} className='tooltipped'
 						data-tooltip={arr[1]} data-position='left'>
