@@ -6,8 +6,6 @@ let indexState = () => alt.getStore('MangaIndexStore').getState();
 let titleState = () => alt.getStore('MangaTitleStore').getState();
 let chapterState = () => alt.getStore('MangaChapterStore').getState();
 
-let emptypromise = () => new Promise(resolve => resolve());
-
 let allMangaData;
 let getAllManga = () => reqwest({
 	url: 'https://www.mangaeden.com/api/list/0/',
