@@ -20,8 +20,8 @@ export default React.createClass({
 			);
 			detail = (
 				<div className='animated fadeIn'>
+					<p className='flow-text'>{_.unescape(this.state.manga.description.replace(/\&\#0+(?=\d+\;)/g, '&#'))}</p>
 					<h1>{this.state.manga.title}</h1>
-					<p className='flow-text'>{_.unescape(this.state.manga.description)}</p>
 					<div className='collection'>
 						{chapters}
 					</div>

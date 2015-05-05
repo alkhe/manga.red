@@ -47,7 +47,7 @@ export default React.createClass({
 	render() {
 		let page;
 		if (this.state.process == Process.Done) {
-			page = <img style={{ width: '60vw' }} src={`https://cdn.mangaeden.com/mangasimg/${this.state.pages[this.state.pages.length - this.state.page - 1][1]}`} />;
+			page = <img style={{ height: 'calc(86vh - 50px)' }} src={`https://cdn.mangaeden.com/mangasimg/${this.state.pages[this.state.pages.length - this.state.page - 1][1]}`} />;
 		}
 		return (
 			<div className='teal-text'>
