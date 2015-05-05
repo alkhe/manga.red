@@ -17,11 +17,8 @@ export default React.createClass({
 	mixins: [State, Symbiosis(Stores.MangaChapter), DOMEvent($(document.body), 'keydown', 'handleKey')],
 	componentWillMount() {
 		Actions.MangaUI.toChapter();
-		let dep = Stores.MangaTitle.getState();
-		if (dep.process == Process.Done) {
-			let params = this.getParams();
-			Actions.MangaAPI.getChapter(dep.manga, params.chapter);
-		}
+		let params = this.getParams();
+		Actions.MangaAPI.getChapter(params.chapter);
 	},
 	handleKey(e) {
 		switch (e.which) {
@@ -45,13 +42,6 @@ export default React.createClass({
 				break;
 			default:
 				break;
-		}
-	},
-	componentWillUpdate(nextProps, nextState) {
-		if (nextState.process == Process.Ready) {
-			let params = this.getParams();
-			let dep = Stores.MangaTitle.getState();
-			Actions.MangaAPI.getChapter.defer(dep.manga, params.chapter);
 		}
 	},
 	render() {

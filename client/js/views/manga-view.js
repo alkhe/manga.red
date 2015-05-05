@@ -11,13 +11,6 @@ export default React.createClass({
 		let params = this.getParams();
 		Actions.MangaAPI.getManga(params.alias);
 	},
-	componentWillUpdate(nextProps, nextState) {
-		// if (nextState.process == Process.Ready) {
-		// 	let params = this.getParams();
-		// 	let index = Stores.MangaIndex.getState();
-		// 	Actions.MangaAPI.getManga.defer(index.all, params.alias);
-		// }
-	},
 	render() {
 		return <RouteHandler />;
 	}

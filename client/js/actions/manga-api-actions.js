@@ -8,44 +8,49 @@ let chapterState = () => alt.getStore('MangaChapterStore').getState();
 
 let emptypromise = () => new Promise(resolve => resolve());
 
-let getAllMangaAPI = () => reqwest({
+let allMangaData;
+let getAllManga = () => reqwest({
 	url: 'https://www.mangaeden.com/api/list/0/',
 	crossOrigin: true
 });
 
-let getMangaAPI = (id) => reqwest({
+let mangaData;
+let getManga = (id) => reqwest({
 	url: `https://www.mangaeden.com/api/manga/${id}`,
+	crossOrigin: true
+});
+
+let chapterData;
+let getChapter = (id) => reqwest({
+	url: `https://www.mangaeden.com/api/chapter/${id}`,
 	crossOrigin: true
 });
 
 class MangaAPIActions {
 	getAllManga() {
-		getAllMangaAPI().then(this.actions.getAllMangaComplete);
+		allMangaData = getAllManga().then(this.actions.getAllMangaComplete);
 		this.dispatch();
 	}
 	getAllMangaComplete(res) {
 		this.dispatch(res.manga);
 	}
 	getManga(alias) {
-		(indexState().process < Process.Working
-			? getAllMangaAPI().then(this.actions.getAllMangaComplete)
-			: emptypromise()
-		).then(() => {
+		allMangaData.then(() => {
 			let manga = _.find(indexState().sorted, _.matchesProperty('a', alias));
-			getMangaAPI(manga.i).then(this.actions.getMangaComplete);
-		});
+			mangaData = getManga(manga.i).then(this.actions.getMangaComplete);
+		})
 		this.dispatch();
 	}
 	getMangaComplete(res) {
 		this.dispatch(res);
 	}
-	getChapter(manga, number) {
-		let chapter = _.find(manga.chapters, c => c[0] == number);
-		reqwest({
-			url: `https://www.mangaeden.com/api/chapter/${chapter[3]}`,
-			crossOrigin: true,
-			success: this.actions.getChapterComplete
-		});
+	getChapter(number) {
+		allMangaData.then(() => {
+			mangaData.then(() => {
+				let id = _.find(titleState().manga.chapters, c => c[0] == number)[3];
+				chapterData = getChapter(id).then(this.actions.getChapterComplete);
+			});
+		})
 		this.dispatch();
 	}
 	getChapterComplete(chapter) {
