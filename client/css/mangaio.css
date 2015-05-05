@@ -39,3 +39,21 @@ a {
 .arrow-cursor {
 	cursor: default;
 }
+
+.animate-enter {
+	opacity: 0;
+	transition: opacity .5s ease-in;
+}
+
+.animate-enter-active {
+	opacity: 1;
+}
+
+.animate-leave {
+	opacity: 1;
+	transition: opacity .5s ease-in;
+}
+
+.animate-enter-active {
+	opacity: 0;
+}

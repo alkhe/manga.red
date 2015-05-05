@@ -15,7 +15,7 @@ export default React.createClass({
 	renderManga() {
 		let state = this.state;
 		return (state.results ? state.results : state.sorted)
-			.slice(0, 20).map(m => <MangaCard key={m.i} manga={m} />);
+			.slice(0, 24).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
 		Actions.MangaUI.search(React.findDOMNode(this.refs.search).value);

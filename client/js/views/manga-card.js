@@ -8,7 +8,7 @@ export default React.createClass({
 		let m = this.props.manga;
 		return (
 			<Link to='manga' params={{ alias: m.a }}>
-				<div className='col s3'>
+				<div className='col l3 m4 s6'>
 					<div className='card large teal z-depth-2 animated fadeIn'>
 						<div className='card-image'>
 							<img src={'https://cdn.mangaeden.com/mangasimg/' + m.im} />

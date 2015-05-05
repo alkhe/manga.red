@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { addons } from 'react';
+import { Link, State } from 'react-router';
 import { Actions, Stores } from '../hub';
 import UIState from '../constants/ui-state-constants';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Network from '../mixins/network-mixin';
+
+let { TransitionGroup } = addons;
 
 export default React.createClass({
-	mixins: [Symbiosis(Stores.UI)],
+	mixins: [State, Network({
+		ui: Stores.UI,
+		title: Stores.MangaTitle,
+		chapter: Stores.MangaChapter
+	})],
 	componentDidMount() {
 		this.componentDidUpdate();
 	},
 	componentDidUpdate() {
 		_.defer(() => {
-			switch (this.state.state) {
+			switch (this.state.ui.level) {
 				case UIState.index:
 					break;
 				case UIState.title:
@@ -25,12 +32,31 @@ export default React.createClass({
 	},
 	renderLeft() {
 		let extra;
-		switch (this.state.state) {
+		let state = this.state;
+		switch (state.ui.level) {
 			case UIState.index:
 				break;
 			case UIState.title:
+				let params = this.getParams();
+				extra = (
+					<li key='detail'>
+						<Link className='teal-text text-lighten-4 animated fadeIn' to='detail' params={{ alias: params.alias }}>{state.title.manga.title}</Link>
+					</li>
+				);
 				break;
 			case UIState.chapter:
+				let params = this.getParams();
+				extra = [
+					['detail', 'detail', { alias: params.alias }, state.title.manga.title],
+					['chapter', 'chapter', { alias: params.alias, chapter: params.chapter }, `Ch. ${params.chapter}`],
+					['page', 'chapter', { alias: params.alias, chapter: params.chapter }, `Pg. ${state.chapter.page}`]
+				].map(arr => (
+					<li key={arr[0]}>
+						<Link className='teal-text text-lighten-4 animated fadeIn' to={arr[1]} params={arr[2]}>
+							{arr[3]}
+						</Link>
+					</li>
+				));
 				break;
 			default:
 				break;
@@ -39,7 +65,7 @@ export default React.createClass({
 	},
 	renderRight() {
 		let extra;
-		switch (this.state.state) {
+		switch (this.state.ui.level) {
 			case UIState.index:
 				break;
 			case UIState.title:
@@ -51,7 +77,7 @@ export default React.createClass({
 					[Actions.MangaUI.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
 					[Actions.MangaUI.readLastPage, 'Last Page (End)', 'av-skip-next']
 				].map((arr, i) => (
-					<li onClick={arr[0]} key={i} className='tooltipped'
+					<li onClick={arr[0]} key={i} className='tooltipped teal-text text-lighten-4'
 						data-tooltip={arr[1]} data-position='left'>
 						<i className={`widemargin mdi-${arr[2]}`}></i>
 					</li>

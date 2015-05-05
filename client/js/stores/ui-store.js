@@ -6,16 +6,16 @@ class UIStore {
 	constructor() {
 		this.bindActions(MangaUIActions);
 
-		this.state = UIState.index;
+		this.level = UIState.index;
 	}
 	toIndex() {
-		this.state = UIState.index;
+		this.level = UIState.index;
 	}
 	toTitle() {
-		this.state = UIState.title;
+		this.level = UIState.title;
 	}
 	toChapter() {
-		this.state = UIState.chapter;
+		this.level = UIState.chapter;
 	}
 }
 
