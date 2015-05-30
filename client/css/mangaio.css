@@ -40,7 +40,7 @@ a {
 	cursor: default;
 }
 
-.animate-enter {
+/*.animate-enter {
 	opacity: 0;
 	transition: opacity .5s ease-in;
 }
@@ -56,4 +56,19 @@ a {
 
 .animate-enter-active {
 	opacity: 0;
+}*/
+
+
+.chapter-entry > div {
+	padding: 0 !important;
+}
+
+.chapter-entry > div > div {
+	transition: .4s ease-in;
+	padding: 10px;
+}
+
+.chapter-entry:hover > div > div {
+	transition: .2s ease-out;
+	background: #eee;
 }
