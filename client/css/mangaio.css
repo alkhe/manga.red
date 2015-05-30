@@ -64,11 +64,11 @@ a {
 }
 
 .chapter-entry > div > div {
-	transition: .4s ease-in;
+	transition: .3s ease-in;
 	padding: 10px;
 }
 
 .chapter-entry:hover > div > div {
-	transition: .2s ease-out;
+	transition: .1s ease-out;
 	background: #eee;
 }

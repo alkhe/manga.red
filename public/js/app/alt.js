@@ -1,1 +1,1 @@
-"use strict";var _interopRequireDefault=function(e){return e&&e.__esModule?e:{"default":e}};Object.defineProperty(exports,"__esModule",{value:!0});var _Alt=require("alt"),_Alt2=_interopRequireDefault(_Alt);exports["default"]=new _Alt2["default"],module.exports=exports["default"];
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(exports,"__esModule",{value:!0});var _alt=require("alt"),_alt2=_interopRequireDefault(_alt);exports["default"]=new _alt2["default"],module.exports=exports["default"];

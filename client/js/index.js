@@ -1,4 +1,4 @@
-System.config({	baseURL: './js/' });
+System.config({ baseURL: './js/' });
 
 Promise.all(
 	['react', 'react-router', 'app/routes'].map(x => System.import(x))
