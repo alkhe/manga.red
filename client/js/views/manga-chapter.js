@@ -46,12 +46,13 @@ export default React.createClass({
 	},
 	render() {
 		let page;
-		if (this.state.process == Process.Done) {
-			page = <img style={{ height: 'calc(86vh - 50px)' }} src={`https://cdn.mangaeden.com/mangasimg/${this.state.pages[this.state.pages.length - this.state.page - 1][1]}`} />;
+		let chapter = this.state;
+		if (chapter.process == Process.Done) {
+			page = <img style={{ height: 'calc(86vh - 50px)' }} src={`https://cdn.mangaeden.com/mangasimg/${chapter.pages[chapter.pages.length - chapter.page - 1][1]}`} />;
 		}
 		return (
-			<div className='teal-text'>
-				<Progress loading={Process.Loading(this.state.process)} />
+			<div>
+				<Progress loading={Process.Loading(chapter.process)} />
 				<div className='center-align'>
 					{page}
 				</div>

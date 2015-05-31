@@ -31,6 +31,15 @@ class MangaUIActions {
 	toChapter() {
 		this.dispatch();
 	}
+	toggleColorPicker() {
+		this.dispatch();
+	}
+	changeThemeColor(o) {
+		if (o.confirm) {
+			localStorage.setItem('theme-color', o.color);
+		}
+		this.dispatch(o);
+	}
 }
 
 export default alt.createActions(MangaUIActions);

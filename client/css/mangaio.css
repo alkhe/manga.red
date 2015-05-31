@@ -72,3 +72,31 @@ a {
 	transition: .1s ease-out;
 	background: #eee;
 }
+
+.colorpicker {
+	position: absolute;
+	background: #222;
+	top: -90px;
+	right: 0;
+	width: 410px;
+	height: 90px;
+	padding: 5px;
+	/*border: 2px solid #eee;*/
+	line-height: 10px;
+}
+
+.colorbox {
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	border: 4px solid #222;
+	display: inline-block;
+}
+
+.colorbox.current {
+	border: 4px solid #eee;
+}
+
+.colorbox.selected {
+	border: 4px solid #888;
+}

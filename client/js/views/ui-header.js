@@ -3,6 +3,7 @@ import { Link, State } from 'react-router';
 import { Actions, Stores } from '../hub';
 import UIState from '../constants/ui-state-constants';
 import Network from '../mixins/network-mixin';
+import ColorPicker from './colorpicker';
 
 let { TransitionGroup } = addons;
 
@@ -32,27 +33,27 @@ export default React.createClass({
 	},
 	renderLeft() {
 		let extra;
-		let state = this.state;
-		switch (state.ui.level) {
+		let { ui, title, chapter } = this.state;
+		switch (ui.level) {
 			case UIState.index:
 				break;
 			case UIState.title:
 				let params = this.getParams();
 				extra = (
 					<li key='detail'>
-						<Link className='teal-text text-lighten-4 animated fadeIn' to='detail' params={{ alias: params.alias }}>{state.title.manga.title}</Link>
+						<Link className={`${ui.color}-text text-lighten-4 animated fadeIn`} to='detail' params={{ alias: params.alias }}>{title.manga.title}</Link>
 					</li>
 				);
 				break;
 			case UIState.chapter:
 				let params = this.getParams();
 				extra = [
-					['detail', 'detail', { alias: params.alias }, state.title.manga.title],
+					['detail', 'detail', { alias: params.alias }, title.manga.title],
 					['chapter', 'chapter', { alias: params.alias, chapter: params.chapter }, `Ch. ${params.chapter}`],
-					['page', 'chapter', { alias: params.alias, chapter: params.chapter }, `Pg. ${state.chapter.page}`]
+					['page', 'chapter', { alias: params.alias, chapter: params.chapter }, `Pg. ${chapter.page}`]
 				].map(arr => (
 					<li key={arr[0]}>
-						<Link className='teal-text text-lighten-4 animated fadeIn' to={arr[1]} params={arr[2]}>
+						<Link className={`${ui.color}-text text-lighten-4 animated fadeIn`} to={arr[1]} params={arr[2]}>
 							{arr[3]}
 						</Link>
 					</li>
@@ -64,34 +65,42 @@ export default React.createClass({
 		return extra;
 	},
 	renderRight() {
-		let extra;
-		switch (this.state.ui.level) {
+		let { ui } = this.state;
+		let extra = [];
+		switch (ui.level) {
 			case UIState.index:
 				break;
 			case UIState.title:
 				break;
 			case UIState.chapter:
-				extra = [
+				extra = extra.concat([
 					[Actions.MangaUI.readFirstPage, 'First Page (Home)', 'av-skip-previous'],
 					[Actions.MangaUI.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
 					[Actions.MangaUI.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
 					[Actions.MangaUI.readLastPage, 'Last Page (End)', 'av-skip-next']
 				].map((arr, i) => (
-					<li onClick={arr[0]} key={i} className='tooltipped teal-text text-lighten-4'
+					<li onClick={arr[0]} key={i} className={`tooltipped ${ui.color}-text text-lighten-4`}
 						data-tooltip={arr[1]} data-position='left'>
 						<i className={`widemargin mdi-${arr[2]}`}></i>
 					</li>
-				));
+				)));
 				break;
 			default:
 				break;
 		}
+		let colorpicker = ui.colorOpen ? <ColorPicker visible={ui.colorOpen} /> : '';
+		extra.push(
+			<li onClick={Actions.MangaUI.toggleColorPicker} className={`tooltipped ${ui.color}-text text-lighten-4`}>
+				<i className={`widemargin mdi-image-color-lens`}></i>
+				{colorpicker}
+			</li>
+		);
 		return extra;
 	},
 	render() {
 		return (
 			<div className='navbar-fixed noselect arrow-cursor'>
-				<nav className='fixed-bottom teal z-depth-0'>
+				<nav className={`fixed-bottom ${this.state.ui.color} z-depth-0`}>
 					<div className='nav-wrapper container'>
 						<ul className='left'>
 							{this.renderLeft()}

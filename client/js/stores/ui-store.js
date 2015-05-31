@@ -7,6 +7,10 @@ class UIStore {
 		this.bindActions(MangaUIActions);
 
 		this.level = UIState.index;
+
+		this.actualcolor = localStorage.getItem('theme-color') || 'red';
+		this.color = this.actualcolor;
+		this.colorOpen = false;
 	}
 	toIndex() {
 		this.level = UIState.index;
@@ -16,6 +20,15 @@ class UIStore {
 	}
 	toChapter() {
 		this.level = UIState.chapter;
+	}
+	changeThemeColor(o) {
+		if (o.confirm) {
+			this.actualcolor = o.color;
+		}
+		this.color = o.color;
+	}
+	toggleColorPicker() {
+		this.colorOpen = !this.colorOpen;
 	}
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Network from '../mixins/network-mixin';
 import { Actions, Stores } from '../hub';
 import MangaCard from '../views/manga-card';
 import Progress from '../views/progress';
@@ -8,13 +8,16 @@ import Process from '../constants/process-constants';
 let plural = n => n == 1 ? '' : 's';
 
 export default React.createClass({
-	mixins: [Symbiosis(Stores.MangaIndex)],
+	mixins: [Network({
+		index: Stores.MangaIndex,
+		ui: Stores.UI
+	})],
 	componentWillMount() {
 		Actions.MangaUI.toIndex();
 	},
 	renderManga() {
-		let state = this.state;
-		return (state.results ? state.results : state.sorted)
+		let { index } = this.state;
+		return (index.results ? index.results : index.sorted)
 			.slice(0, 24).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
@@ -24,12 +27,12 @@ export default React.createClass({
 		React.findDOMNode(this.refs.search).focus();
 	},
 	render() {
-		let state = this.state;
-		let titles = state.results ? state.results.length : state.sorted.length;
+		let { index, ui } = this.state;
+		let titles = index.results ? index.results.length : index.sorted.length;
 		return (
 			<div>
-				<Progress loading={Process.Loading(state.process)} />
-				<div className='input-field teal-text text-lighten-4'>
+				<Progress loading={Process.Loading(index.process)} />
+				<div className={`input-field ${ui.color}-text text-lighten-4`}>
 					<input type='text' ref='search' onChange={this.search} />
 					<label>Search titles</label>
 				</div>
