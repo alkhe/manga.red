@@ -1,6 +1,6 @@
 import alt from '../alt';
 
-let indexState = () => alt.getStore('MangaIndexStore').getState();
+let mangaIndex = _.once(() => alt.getStore('MangaIndexStore'));
 let lastSearch = null;
 
 class MangaUIActions {
@@ -19,7 +19,7 @@ class MangaUIActions {
 	search(term) {
 		clearTimeout(lastSearch);
 		lastSearch = _.delay(() => {
-			this.dispatch(term.length > 0 ? indexState().fuzzy.search(term) : null);
+			this.dispatch(term.length > 0 ? mangaIndex().getState().fuzzy.search(term) : null);
 		}, 400);
 	}
 	toIndex() {

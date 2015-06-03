@@ -2,9 +2,9 @@ import alt from '../alt';
 import reqwest from 'reqwest';
 import Process from '../constants/process-constants';
 
-let indexState = () => alt.getStore('MangaIndexStore').getState();
-let titleState = () => alt.getStore('MangaTitleStore').getState();
-let chapterState = () => alt.getStore('MangaChapterStore').getState();
+let indexStore = _.once(() => alt.getStore('MangaIndexStore'));
+let titleStore = _.once(() => alt.getStore('MangaTitleStore'));
+let chapterStore = _.once(() => alt.getStore('MangaChapterStore'));
 
 let allMangaData;
 let getAllManga = () => reqwest({
@@ -34,7 +34,7 @@ class MangaAPIActions {
 	}
 	getManga(alias) {
 		allMangaData.then(() => {
-			let manga = _.find(indexState().sorted, _.matchesProperty('a', alias));
+			let manga = _.find(indexStore().getState().sorted, _.matchesProperty('a', alias));
 			mangaData = getManga(manga.i).then(this.actions.getMangaComplete);
 		})
 		this.dispatch();
@@ -45,7 +45,7 @@ class MangaAPIActions {
 	getChapter(number) {
 		allMangaData.then(() => {
 			mangaData.then(() => {
-				let id = _.find(titleState().manga.chapters, c => c[0] == number)[3];
+				let id = _.find(titleStore().getState().manga.chapters, c => c[0] == number)[3];
 				chapterData = getChapter(id).then(this.actions.getChapterComplete);
 			});
 		})

@@ -14,15 +14,17 @@ export default React.createClass({
 		Actions.MangaUI.changeThemeColor({ color: c, confirm: true });
 	},
 	render() {
+		let { props, state } = this;
 		let colorboxes = colors.map(c =>
 			<div onMouseOver={_.partialRight(this.changeColor, c)}
 				onClick={_.partialRight(this.changeColorConfirm, c)}
 				key={c}
-				className={`colorbox ${c} ${c == this.state.actualcolor ? 'current' : (c == this.state.color ? 'selected' : '')}`}>
+				className={`colorbox ${c} ${c == state.actualcolor ? 'current' : (c == state.color ? 'selected' : '')}`}>
 			</div>
 		);
 		return (
-			<div onMouseLeave={_.partialRight(this.changeColor, this.state.actualcolor)} className='colorpicker'>
+			<div onMouseLeave={_.partialRight(this.changeColor, state.actualcolor)}
+				className={`colorpicker ${props.hidden ? 'hide' : ''}`}>
 				{colorboxes}
 			</div>
 		);

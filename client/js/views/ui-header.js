@@ -88,11 +88,10 @@ export default React.createClass({
 			default:
 				break;
 		}
-		let colorpicker = ui.colorOpen ? <ColorPicker visible={ui.colorOpen} /> : '';
 		extra.push(
 			<li onClick={Actions.MangaUI.toggleColorPicker} className={`tooltipped ${ui.color}-text text-lighten-4`}>
 				<i className={`widemargin mdi-image-color-lens`}></i>
-				{colorpicker}
+				<ColorPicker hidden={!ui.colorOpen} />
 			</li>
 		);
 		return extra;
