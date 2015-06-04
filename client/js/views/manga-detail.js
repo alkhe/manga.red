@@ -7,11 +7,11 @@ import Process from '../constants/process-constants';
 
 export default React.createClass({
 	mixins: [State, Network({
-		title: Stores.MangaTitle,
+		title: Stores.Title,
 		ui: Stores.UI
 	})],
 	componentWillMount() {
-		Actions.MangaUI.toTitle();
+		Actions.UI.toTitle();
 	},
 	renderDetail() {
 		let detail;

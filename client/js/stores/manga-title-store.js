@@ -1,10 +1,10 @@
 import alt from '../alt';
-import MangaAPIActions from '../actions/manga-api-actions';
+import Actions from '../actions/index';
 import Process from '../constants/process-constants';
 
 class MangaTitleStore {
 	constructor() {
-		this.bindActions(MangaAPIActions);
+		this.bindActions(Actions.API);
 
 		this.manga = {};
 

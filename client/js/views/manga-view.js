@@ -6,10 +6,10 @@ import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
 export default React.createClass({
-	mixins: [State, Symbiosis(Stores.MangaTitle)],
+	mixins: [State, Symbiosis(Stores.Title)],
 	componentWillMount() {
 		let params = this.getParams();
-		Actions.MangaAPI.getManga(params.alias);
+		Actions.API.getManga(params.alias);
 	},
 	render() {
 		return <RouteHandler />;

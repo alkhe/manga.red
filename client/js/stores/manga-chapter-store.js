@@ -1,14 +1,13 @@
 import alt from '../alt';
-import MangaAPIActions from '../actions/manga-api-actions';
-import MangaUIActions from '../actions/manga-ui-actions';
+import Actions from '../actions/index';
 import Process from '../constants/process-constants';
 
 let images = [];
 
 class MangaChapterStore {
 	constructor() {
-		this.bindActions(MangaAPIActions);
-		this.bindActions(MangaUIActions);
+		this.bindActions(Actions.API);
+		this.bindActions(Actions.UI);
 
 		this.page = 0;
 		this.pages = [];

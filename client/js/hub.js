@@ -1,10 +1,4 @@
-import MangaAPI from './actions/manga-api-actions';
-import MangaUI from './actions/manga-ui-actions';
+import Actions from './actions/index';
+import Stores from './stores/index';
 
-import MangaIndex from './stores/manga-index-store';
-import MangaTitle from './stores/manga-title-store';
-import MangaChapter from './stores/manga-chapter-store';
-import UI from './stores/ui-store';
-
-export const Actions = { MangaAPI, MangaUI };
-export const Stores = { MangaIndex, MangaTitle, MangaChapter, UI };
+export default { Actions, Stores };

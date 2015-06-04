@@ -7,11 +7,11 @@ let colors = ['red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-b
 export default React.createClass({
 	mixins: [Symbiosis(Stores.UI)],
 	changeColor(e, el, c) {
-		Actions.MangaUI.changeThemeColor({ color: c, confirm: false });
+		Actions.UI.changeThemeColor({ color: c, confirm: false });
 	},
 	changeColorConfirm(e, el, c) {
 		e.stopPropagation();
-		Actions.MangaUI.changeThemeColor({ color: c, confirm: true });
+		Actions.UI.changeThemeColor({ color: c, confirm: true });
 	},
 	render() {
 		let { props, state } = this;

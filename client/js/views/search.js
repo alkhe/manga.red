@@ -9,11 +9,11 @@ let plural = n => n == 1 ? '' : 's';
 
 export default React.createClass({
 	mixins: [Network({
-		index: Stores.MangaIndex,
+		index: Stores.Index,
 		ui: Stores.UI
 	})],
 	componentWillMount() {
-		Actions.MangaUI.toIndex();
+		Actions.UI.toIndex();
 	},
 	renderManga() {
 		let { index } = this.state;
@@ -21,7 +21,7 @@ export default React.createClass({
 			.slice(0, 24).map(m => <MangaCard key={m.i} manga={m} />);
 	},
 	search() {
-		Actions.MangaUI.search(React.findDOMNode(this.refs.search).value);
+		Actions.UI.search(React.findDOMNode(this.refs.search).value);
 	},
 	componentDidMount() {
 		React.findDOMNode(this.refs.search).focus();

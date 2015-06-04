@@ -14,31 +14,27 @@ const keys = {
 };
 
 export default React.createClass({
-	mixins: [State, Symbiosis(Stores.MangaChapter), DOMEvent($(document.body), 'keydown', 'handleKey')],
+	mixins: [State, Symbiosis(Stores.Chapter), DOMEvent($(document.body), 'keydown', 'handleKey')],
 	componentWillMount() {
-		Actions.MangaUI.toChapter();
+		Actions.UI.toChapter();
 		let params = this.getParams();
-		Actions.MangaAPI.getChapter(params.chapter);
+		Actions.API.getChapter(params.chapter);
 	},
 	handleKey(e) {
 		switch (e.which) {
 			case keys.left:
-				Actions.MangaUI.readPreviousPage();
-				document.body.scrollTop = 0;
+				Actions.UI.readPreviousPage();
 				break;
 			case keys.right:
-				Actions.MangaUI.readNextPage();
-				document.body.scrollTop = 0;
+				Actions.UI.readNextPage();
 				break;
 			case keys.home:
 				e.preventDefault();
-				Actions.MangaUI.readFirstPage();
-				document.body.scrollTop = 0;
+				Actions.UI.readFirstPage();
 				break;
 			case keys.end:
 				e.preventDefault();
-				Actions.MangaUI.readLastPage();
-				document.body.scrollTop = 0;
+				Actions.UI.readLastPage();
 				break;
 			default:
 				break;

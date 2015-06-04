@@ -10,8 +10,8 @@ let { TransitionGroup } = addons;
 export default React.createClass({
 	mixins: [State, Network({
 		ui: Stores.UI,
-		title: Stores.MangaTitle,
-		chapter: Stores.MangaChapter
+		title: Stores.Title,
+		chapter: Stores.Chapter
 	})],
 	componentDidMount() {
 		this.componentDidUpdate();
@@ -74,10 +74,10 @@ export default React.createClass({
 				break;
 			case UIState.chapter:
 				extra = extra.concat([
-					[Actions.MangaUI.readFirstPage, 'First Page (Home)', 'av-skip-previous'],
-					[Actions.MangaUI.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
-					[Actions.MangaUI.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
-					[Actions.MangaUI.readLastPage, 'Last Page (End)', 'av-skip-next']
+					[Actions.UI.readFirstPage, 'First Page (Home)', 'av-skip-previous'],
+					[Actions.UI.readPreviousPage, 'Previous Page (Left)', 'hardware-keyboard-arrow-left'],
+					[Actions.UI.readNextPage, 'Next Page (Right)', 'hardware-keyboard-arrow-right'],
+					[Actions.UI.readLastPage, 'Last Page (End)', 'av-skip-next']
 				].map((arr, i) => (
 					<li onClick={arr[0]} key={i} className={`tooltipped ${ui.color}-text text-lighten-4`}
 						data-tooltip={arr[1]} data-position='left'>
@@ -89,7 +89,7 @@ export default React.createClass({
 				break;
 		}
 		extra.push(
-			<li onClick={Actions.MangaUI.toggleColorPicker} className={`tooltipped ${ui.color}-text text-lighten-4`}>
+			<li onClick={Actions.UI.toggleColorPicker} className={`tooltipped ${ui.color}-text text-lighten-4`}>
 				<i className={`widemargin mdi-image-color-lens`}></i>
 				<ColorPicker hidden={!ui.colorOpen} />
 			</li>

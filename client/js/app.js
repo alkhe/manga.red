@@ -8,7 +8,7 @@ import Symbiosis from './mixins/symbiosis-mixin';
 export default React.createClass({
 	mixins: [Symbiosis(Stores.UI)],
 	componentWillMount() {
-		Actions.MangaAPI.getAllManga();
+		Actions.API.getAllManga();
 	},
 	renderHeader() {
 		// return (this.state.state != UIState.chapter)

@@ -1,10 +1,10 @@
 import alt from '../alt';
 import UIState from '../constants/ui-state-constants';
-import MangaUIActions from '../actions/manga-ui-actions';
+import Actions from '../actions/index';
 
 class UIStore {
 	constructor() {
-		this.bindActions(MangaUIActions);
+		this.bindActions(Actions.UI);
 
 		this.level = UIState.index;
 

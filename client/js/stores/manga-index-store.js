@@ -1,12 +1,11 @@
 import alt from '../alt';
-import MangaAPIActions from '../actions/manga-api-actions';
-import MangaUIActions from '../actions/manga-ui-actions';
+import Actions from '../actions/index';
 import Process from '../constants/process-constants';
 
 class MangaIndexStore {
 	constructor() {
-		this.bindActions(MangaAPIActions);
-		this.bindActions(MangaUIActions);
+		this.bindActions(Actions.API);
+		this.bindActions(Actions.UI);
 
 		this.all = [];
 		this.sorted = [];
