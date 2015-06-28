@@ -1,18 +1,18 @@
 import React from 'react';
 import { Actions, Stores } from '../hub';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Symbiosis from '../decorators/symbiosis';
 
 let colors = ['red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey'];
 
-export default React.createClass({
-	mixins: [Symbiosis(Stores.UI)],
+@Symbiosis(Stores.UI)
+export default class extends React.Component {
 	changeColor(e, el, c) {
 		Actions.UI.changeThemeColor({ color: c, confirm: false });
-	},
+	}
 	changeColorConfirm(e, el, c) {
 		e.stopPropagation();
 		Actions.UI.changeThemeColor({ color: c, confirm: true });
-	},
+	}
 	render() {
 		let { props, state } = this;
 		let colorboxes = colors.map(c =>
@@ -29,4 +29,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

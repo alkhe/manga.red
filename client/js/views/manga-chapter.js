@@ -1,7 +1,8 @@
 import React from 'react';
 import { State } from 'react-router';
 import { Actions, Stores } from '../hub';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Mixin from '../mixins/mixin';
+import Symbiosis from '../decorators/symbiosis';
 import DOMEvent from '../mixins/dom-event-mixin';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
@@ -13,13 +14,13 @@ const keys = {
 	right: 39
 };
 
-export default React.createClass({
-	mixins: [State, Symbiosis(Stores.Chapter), DOMEvent($(document.body), 'keydown', 'handleKey')],
+@Symbiosis(Stores.Chapter)
+export default class extends Mixin(React.Component, State, DOMEvent($(document.body), 'keydown', 'handleKey')) {
 	componentWillMount() {
 		Actions.UI.toChapter();
 		let params = this.getParams();
 		Actions.API.getChapter(params.chapter);
-	},
+	}
 	handleKey(e) {
 		switch (e.which) {
 			case keys.left:
@@ -39,7 +40,7 @@ export default React.createClass({
 			default:
 				break;
 		}
-	},
+	}
 	render() {
 		let page;
 		let chapter = this.state;
@@ -55,4 +56,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

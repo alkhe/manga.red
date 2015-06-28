@@ -1,34 +1,31 @@
-var gulp = require('gulp'),
-	cached = require('gulp-cached'),
-	plumber = require('gulp-plumber'),
-	sourcemaps = require('gulp-sourcemaps'),
-	babel = require('gulp-babel'),
-	uglify = require('gulp-uglify'),
-	cssnext = require('gulp-cssnext')
-	jade = require('gulp-jade'),
-	vectors = require('./vectors');
+import gulp from 'gulp';
+import cached from 'gulp-cached';
+import plumber from 'gulp-plumber';
+import sourcemaps from 'gulp-sourcemaps';
+import babel from 'gulp-babel';
+import uglify from 'gulp-uglify';
+import cssnext from 'gulp-cssnext';
+import jade from 'gulp-jade';
+import vectors from './vectors';
 
-var js = vectors.js,
-	css = vectors.css,
-	html = vectors.html;
+let { js, css, html } = vectors;
 
-var make = function(vector, transforms) {
-	return function() {
-		var build = gulp.src(vector.src)
+let make = (vector, transforms) =>
+	() => {
+		let build = gulp.src(vector.src)
 			.pipe(plumber())
 			.pipe(cached(vector.id));
-		for (var k in transforms) {
-			build = build.pipe(transforms[k]());
+		for (let t of transforms) {
+			build = build.pipe(t());
 		}
 		build.pipe(gulp.dest(vector.dst));
 	};
-};
 
 /**
  * Compile Javascript/JSX for production
  */
 gulp.task('js', make(js, [
-	babel,
+	() => babel({ stage: 0 }),
 	uglify
 ]));
 
@@ -36,14 +33,14 @@ gulp.task('js', make(js, [
  * Compile Stylus for production
  */
 gulp.task('css', make(css, [
-	function() { return cssnext({ compress: true }); }
+	() => cssnext({ compress: true })
 ]));
 
 /**
  * Compile Jade for production
  */
 gulp.task('html', make(html, [
-	function() { return jade({ compileDebug: false }); }
+	() => jade({ compileDebug: false })
 ]));
 
 /**
@@ -51,30 +48,30 @@ gulp.task('html', make(html, [
  */
 gulp.task('js-map', make(js, [
 	sourcemaps.init,
-		babel,
+		() => babel({ stage: 0 }),
 		uglify,
-	function() { return sourcemaps.write('.'); }
+	() => sourcemaps.write('.')
 ]));
 
 /**
  * Compile Stylus for production
  */
 gulp.task('css-map', make(css, [
-	function() { return cssnext({ compress: true }); }
+	() => cssnext({ compress: true })
 ]));
 
 /**
  * Compile Jade for production
  */
 gulp.task('html-map', make(html, [
-	function() { return jade({ compileDebug: false }); }
+	() => jade({ compileDebug: false })
 ]));
 
 /**
  * Compile Javascript/JSX for development
  */
 gulp.task('js-dev', make(js, [
-	babel
+	() => babel({ stage: 0 })
 ]));
 
 /**
@@ -88,5 +85,5 @@ gulp.task('css-dev', make(css, [
  * Compile Jade for development
  */
 gulp.task('html-dev', make(html, [
-	function() { return jade({ compileDebug: true }); }
+	() => jade({ compileDebug: true })
 ]));

@@ -1,10 +1,11 @@
 import React from 'react';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Symbiosis from '../mixins/symbiosis';
 import { Stores } from '../hub';
+import Mixin from '../mixins/mixin';
 let { PureRenderMixin } = React.addons;
 
-export default React.createClass({
-	mixins: [PureRenderMixin, Symbiosis(Stores.UI)],
+@Symbiosis(Stores.UI)
+export default class extends Mixin(React.Component, PureRenderMixin) {
 	render() {
 		let color = this.state.color;
 		let innerClass = `${this.props.loading ? 'indeterminate' : 'determinate'} ${color} lighten-4`;
@@ -14,4 +15,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

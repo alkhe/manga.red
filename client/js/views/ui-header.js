@@ -2,20 +2,21 @@ import React, { addons } from 'react';
 import { Link, State } from 'react-router';
 import { Actions, Stores } from '../hub';
 import UIState from '../constants/ui-state-constants';
-import Network from '../mixins/network-mixin';
+import Mixin from '../mixins/mixin';
+import Network from '../decorators/network';
 import ColorPicker from './colorpicker';
 
 let { TransitionGroup } = addons;
 
-export default React.createClass({
-	mixins: [State, Network({
-		ui: Stores.UI,
-		title: Stores.Title,
-		chapter: Stores.Chapter
-	})],
-	componentDidMount() {
+@Network({
+	ui: Stores.UI,
+	title: Stores.Title,
+	chapter: Stores.Chapter
+})
+export default class extends React.Component {
+	componentDidMount = () => {
 		this.componentDidUpdate();
-	},
+	}
 	componentDidUpdate() {
 		_.defer(() => {
 			switch (this.state.ui.level) {
@@ -30,7 +31,7 @@ export default React.createClass({
 					break;
 			}
 		});
-	},
+	}
 	renderLeft() {
 		let extra;
 		let { ui, title, chapter } = this.state;
@@ -63,7 +64,7 @@ export default React.createClass({
 				break;
 		}
 		return extra;
-	},
+	}
 	renderRight() {
 		let { ui } = this.state;
 		let extra = [];
@@ -95,7 +96,7 @@ export default React.createClass({
 			</li>
 		);
 		return extra;
-	},
+	}
 	render() {
 		return (
 			<div className='navbar-fixed noselect arrow-cursor'>
@@ -112,4 +113,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link, State } from 'react-router';
 import { Actions, Stores } from '../hub';
-import Network from '../mixins/network-mixin';
+import Network from '../decorators/network';
+import Mixin from '../mixins/mixin';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
-export default React.createClass({
-	mixins: [State, Network({
-		title: Stores.Title,
-		ui: Stores.UI
-	})],
+@Network({
+	title: Stores.Title,
+	ui: Stores.UI
+})
+export default class extends Mixin(React.Component, State) {
 	componentWillMount() {
 		Actions.UI.toTitle();
-	},
+	}
 	renderDetail() {
 		let detail;
 		let { title, ui } = this.state;
@@ -32,7 +33,7 @@ export default React.createClass({
 			);
 		}
 		return detail;
-	},
+	}
 	render() {
 		let { title, ui } = this.state;
 		return (
@@ -44,4 +45,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

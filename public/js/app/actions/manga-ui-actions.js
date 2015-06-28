@@ -1,1 +1,91 @@
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var a=0;a<t.length;a++){var n=t[a];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,a,n){return a&&e(t.prototype,a),n&&e(t,n),t}}(),_alt=require("../alt"),_alt2=_interopRequireDefault(_alt),mangaIndex=_.once(function(){return _alt2["default"].getStore("MangaIndexStore")}),lastSearch=null,MangaUIActions=function(){function e(){_classCallCheck(this,e)}return _createClass(e,[{key:"readNextPage",value:function(){this.dispatch()}},{key:"readPreviousPage",value:function(){this.dispatch()}},{key:"readFirstPage",value:function(){this.dispatch()}},{key:"readLastPage",value:function(){this.dispatch()}},{key:"search",value:function(e){var t=this;clearTimeout(lastSearch),lastSearch=_.delay(function(){t.dispatch(e.length>0?mangaIndex().getState().fuzzy.search(e):null)},400)}},{key:"toIndex",value:function(){this.dispatch()}},{key:"toTitle",value:function(){this.dispatch()}},{key:"toChapter",value:function(){this.dispatch()}},{key:"toggleColorPicker",value:function(){this.dispatch()}},{key:"changeThemeColor",value:function(e){e.confirm&&localStorage.setItem("theme-color",e.color),this.dispatch(e)}}]),e}();exports["default"]=_alt2["default"].createActions(MangaUIActions),module.exports=exports["default"];
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var mangaIndex = _.once(function () {
+	return _alt2['default'].getStore('MangaIndexStore');
+});
+var lastSearch = null;
+
+var MangaUIActions = (function () {
+	function MangaUIActions() {
+		_classCallCheck(this, MangaUIActions);
+	}
+
+	_createClass(MangaUIActions, [{
+		key: 'readNextPage',
+		value: function readNextPage() {
+			this.dispatch();
+		}
+	}, {
+		key: 'readPreviousPage',
+		value: function readPreviousPage() {
+			this.dispatch();
+		}
+	}, {
+		key: 'readFirstPage',
+		value: function readFirstPage() {
+			this.dispatch();
+		}
+	}, {
+		key: 'readLastPage',
+		value: function readLastPage() {
+			this.dispatch();
+		}
+	}, {
+		key: 'search',
+		value: function search(term) {
+			var _this = this;
+
+			clearTimeout(lastSearch);
+			lastSearch = _.delay(function () {
+				_this.dispatch(term.length > 0 ? mangaIndex().getState().fuzzy.search(term) : null);
+			}, 400);
+		}
+	}, {
+		key: 'toIndex',
+		value: function toIndex() {
+			this.dispatch();
+		}
+	}, {
+		key: 'toTitle',
+		value: function toTitle() {
+			this.dispatch();
+		}
+	}, {
+		key: 'toChapter',
+		value: function toChapter() {
+			this.dispatch();
+		}
+	}, {
+		key: 'toggleColorPicker',
+		value: function toggleColorPicker() {
+			this.dispatch();
+		}
+	}, {
+		key: 'changeThemeColor',
+		value: function changeThemeColor(o) {
+			if (o.confirm) {
+				localStorage.setItem('theme-color', o.color);
+			}
+			this.dispatch(o);
+		}
+	}]);
+
+	return MangaUIActions;
+})();
+
+exports['default'] = _alt2['default'].createActions(MangaUIActions);
+module.exports = exports['default'];

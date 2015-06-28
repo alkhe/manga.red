@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Stores } from '../hub';
-import Symbiosis from '../mixins/symbiosis-mixin';
+import Symbiosis from '../decorators/symbiosis';
 
-export default React.createClass({
-	mixins: [Symbiosis(Stores.UI)],
+@Symbiosis(Stores.UI)
+export default class extends React.Component {
 	render() {
 		let color = this.state.color;
 		return (
@@ -24,4 +24,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

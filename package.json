@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=development gulp dev & nodemon"
   },
   "dependencies": {
-    "fs-extra": "^0.18.4",
+    "fs-extra": "^0.20.1",
     "koa": "^0.21.0",
     "koa-compress": "^1.0.8",
     "koa-conditional-get": "^1.0.3",
@@ -18,17 +18,18 @@
     "koa-static": "^1.4.9"
   },
   "devDependencies": {
+    "babel": "^5.6.14",
     "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-cached": "^1.1.0",
-    "gulp-cssnext": "^1.0.0",
+    "gulp-cssnext": "^1.0.1",
     "gulp-jade": "^1.0.1",
     "gulp-plumber": "^1.0.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0"
   },
   "engines": {
-    "iojs": "1.x"
+    "iojs": "^1.x"
   }
 }

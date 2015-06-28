@@ -1,1 +1,117 @@
-"use strict";function _interopRequireDefault(t){return t&&t.__esModule?t:{"default":t}}function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function t(t,e){for(var a=0;a<e.length;a++){var n=e[a];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,a,n){return a&&t(e.prototype,a),n&&t(e,n),e}}(),_alt=require("../alt"),_alt2=_interopRequireDefault(_alt),_reqwest=require("reqwest"),_reqwest2=_interopRequireDefault(_reqwest),_constantsProcessConstants=require("../constants/process-constants"),_constantsProcessConstants2=_interopRequireDefault(_constantsProcessConstants),indexStore=_.once(function(){return _alt2["default"].getStore("MangaIndexStore")}),titleStore=_.once(function(){return _alt2["default"].getStore("MangaTitleStore")}),chapterStore=_.once(function(){return _alt2["default"].getStore("MangaChapterStore")}),allMangaData=void 0,_getAllManga=function(){return _reqwest2["default"]({url:"https://www.mangaeden.com/api/list/0/",crossOrigin:!0})},mangaData=void 0,_getManga=function(t){return _reqwest2["default"]({url:"https://www.mangaeden.com/api/manga/"+t,crossOrigin:!0})},chapterData=void 0,_getChapter=function(t){return _reqwest2["default"]({url:"https://www.mangaeden.com/api/chapter/"+t,crossOrigin:!0})},MangaAPIActions=function(){function t(){_classCallCheck(this,t)}return _createClass(t,[{key:"getAllManga",value:function(){allMangaData=_getAllManga().then(this.actions.getAllMangaComplete),this.dispatch()}},{key:"getAllMangaComplete",value:function(t){this.dispatch(t.manga)}},{key:"getManga",value:function(t){var e=this;allMangaData.then(function(){var a=_.find(indexStore().getState().sorted,_.matchesProperty("a",t));mangaData=_getManga(a.i).then(e.actions.getMangaComplete)}),this.dispatch()}},{key:"getMangaComplete",value:function(t){this.dispatch(t)}},{key:"getChapter",value:function(t){var e=this;allMangaData.then(function(){mangaData.then(function(){var a=_.find(titleStore().getState().manga.chapters,function(e){return e[0]==t})[3];chapterData=_getChapter(a).then(e.actions.getChapterComplete)})}),this.dispatch()}},{key:"getChapterComplete",value:function(t){this.dispatch(t.images)}}]),t}();exports["default"]=_alt2["default"].createActions(MangaAPIActions),module.exports=exports["default"];
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _reqwest = require('reqwest');
+
+var _reqwest2 = _interopRequireDefault(_reqwest);
+
+var _constantsProcessConstants = require('../constants/process-constants');
+
+var _constantsProcessConstants2 = _interopRequireDefault(_constantsProcessConstants);
+
+var indexStore = _.once(function () {
+	return _alt2['default'].getStore('MangaIndexStore');
+});
+var titleStore = _.once(function () {
+	return _alt2['default'].getStore('MangaTitleStore');
+});
+var chapterStore = _.once(function () {
+	return _alt2['default'].getStore('MangaChapterStore');
+});
+
+var allMangaData = undefined;
+var _getAllManga = function _getAllManga() {
+	return (0, _reqwest2['default'])({
+		url: 'https://www.mangaeden.com/api/list/0/',
+		crossOrigin: true
+	});
+};
+
+var mangaData = undefined;
+var _getManga = function _getManga(id) {
+	return (0, _reqwest2['default'])({
+		url: 'https://www.mangaeden.com/api/manga/' + id,
+		crossOrigin: true
+	});
+};
+
+var chapterData = undefined;
+var _getChapter = function _getChapter(id) {
+	return (0, _reqwest2['default'])({
+		url: 'https://www.mangaeden.com/api/chapter/' + id,
+		crossOrigin: true
+	});
+};
+
+var MangaAPIActions = (function () {
+	function MangaAPIActions() {
+		_classCallCheck(this, MangaAPIActions);
+	}
+
+	_createClass(MangaAPIActions, [{
+		key: 'getAllManga',
+		value: function getAllManga() {
+			allMangaData = _getAllManga().then(this.actions.getAllMangaComplete);
+			this.dispatch();
+		}
+	}, {
+		key: 'getAllMangaComplete',
+		value: function getAllMangaComplete(res) {
+			this.dispatch(res.manga);
+		}
+	}, {
+		key: 'getManga',
+		value: function getManga(alias) {
+			var _this = this;
+
+			allMangaData.then(function () {
+				var manga = _.find(indexStore().getState().sorted, _.matchesProperty('a', alias));
+				mangaData = _getManga(manga.i).then(_this.actions.getMangaComplete);
+			});
+			this.dispatch();
+		}
+	}, {
+		key: 'getMangaComplete',
+		value: function getMangaComplete(res) {
+			this.dispatch(res);
+		}
+	}, {
+		key: 'getChapter',
+		value: function getChapter(number) {
+			var _this2 = this;
+
+			allMangaData.then(function () {
+				mangaData.then(function () {
+					var id = _.find(titleStore().getState().manga.chapters, function (c) {
+						return c[0] == number;
+					})[3];
+					chapterData = _getChapter(id).then(_this2.actions.getChapterComplete);
+				});
+			});
+			this.dispatch();
+		}
+	}, {
+		key: 'getChapterComplete',
+		value: function getChapterComplete(chapter) {
+			this.dispatch(chapter.images);
+		}
+	}]);
+
+	return MangaAPIActions;
+})();
+
+exports['default'] = _alt2['default'].createActions(MangaAPIActions);
+module.exports = exports['default'];

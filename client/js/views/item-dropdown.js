@@ -1,8 +1,8 @@
 import React from 'react';
+import Mixin from '../mixins/mixin';
 let { PureRenderMixin } = React.addons;
 
-export default React.createClass({
-	mixins: [PureRenderMixin],
+export default class extends Mixin(React.Component, PureRenderMixin) {
 	render() {
 		let props = this.props;
 		return (
@@ -14,4 +14,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}
