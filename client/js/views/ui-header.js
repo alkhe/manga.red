@@ -1,12 +1,9 @@
-import React, { addons } from 'react';
-import { Link, State } from 'react-router';
+import React from 'react';
+import { Link } from 'react-router';
 import { Actions, Stores } from '../hub';
 import UIState from '../constants/ui-state-constants';
-import Mixin from '../mixins/mixin';
 import Network from '../decorators/network';
 import ColorPicker from './colorpicker';
-
-let { TransitionGroup } = addons;
 
 @Network({
 	ui: Stores.UI,
@@ -14,7 +11,10 @@ let { TransitionGroup } = addons;
 	chapter: Stores.Chapter
 })
 export default class extends React.Component {
-	componentDidMount = () => {
+	static contextTypes = {
+		router: React.PropTypes.any.isRequired
+	}
+	componentDidMount() {
 		this.componentDidUpdate();
 	}
 	componentDidUpdate() {
@@ -33,13 +33,13 @@ export default class extends React.Component {
 		});
 	}
 	renderLeft() {
-		let extra;
+		let extra, params;
 		let { ui, title, chapter } = this.state;
 		switch (ui.level) {
 			case UIState.index:
 				break;
 			case UIState.title:
-				let params = this.getParams();
+				params = this.context.router.getCurrentParams();
 				extra = (
 					<li key='detail'>
 						<Link className={`${ui.color}-text text-lighten-4 animated fadeIn`} to='detail' params={{ alias: params.alias }}>{title.manga.title}</Link>
@@ -47,7 +47,7 @@ export default class extends React.Component {
 				);
 				break;
 			case UIState.chapter:
-				let params = this.getParams();
+				params = this.context.router.getCurrentParams();
 				extra = [
 					['detail', 'detail', { alias: params.alias }, title.manga.title],
 					['chapter', 'chapter', { alias: params.alias, chapter: params.chapter }, `Ch. ${params.chapter}`],

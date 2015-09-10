@@ -1,7 +1,6 @@
 import React from 'react';
 import { Actions, Stores } from '../hub';
 import Network from '../decorators/network';
-import Autobind from '../decorators/autobind';
 import MangaCard from '../views/manga-card';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
@@ -12,7 +11,6 @@ let plural = n => n == 1 ? '' : 's';
 	index: Stores.Index,
 	ui: Stores.UI
 })
-@Autobind
 export default class extends React.Component {
 	componentWillMount() {
 		Actions.UI.toIndex();

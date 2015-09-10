@@ -1,15 +1,17 @@
 import React from 'react';
-import { State, RouteHandler } from 'react-router';
+import { RouteHandler } from 'react-router';
 import { Actions, Stores } from '../hub';
-import Mixin from '../mixins/mixin';
-import Symbiosis from '../mixins/symbiosis';
+import Symbiosis from '../decorators/symbiosis';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
 @Symbiosis(Stores.Title)
-export default class extends Mixin(React.Component, State) {
+export default class extends React.Component {
+	static contextTypes = {
+		router: React.PropTypes.any.isRequired
+	}
 	componentWillMount() {
-		let params = this.getParams();
+		let params = this.context.router.getCurrentParams();
 		Actions.API.getManga(params.alias);
 	}
 	render() {

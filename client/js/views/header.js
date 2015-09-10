@@ -4,9 +4,9 @@ import { Stores } from '../hub';
 import Symbiosis from '../decorators/symbiosis';
 
 @Symbiosis(Stores.UI)
-export default class extends React.Component {
+export default class Header extends React.Component {
 	render() {
-		let color = this.state.color;
+		let { color } = this.state;
 		return (
 			<div className='navbar-fixed noselect arrow-cursor'>
 				<nav className={color}>

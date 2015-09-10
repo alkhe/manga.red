@@ -3,25 +3,25 @@ import { RouteHandler } from 'react-router';
 import { Actions, Stores } from './hub';
 import Header from './views/header';
 import UIHeader from './views/ui-header';
-import Symbiosis from './mixins/symbiosis-mixin';
+import Symbiosis from './decorators/symbiosis';
 
-export default React.createClass({
-	mixins: [Symbiosis(Stores.UI)],
+@Symbiosis(Stores.UI)
+export default class extends React.Component {
 	componentWillMount() {
 		Actions.API.getAllManga();
-	},
+	}
 	renderHeader() {
 		// return (this.state.state != UIState.chapter)
 		// 	? <Header />
 		// 	: null;
 		return <Header />;
-	},
+	}
 	renderUIHeader() {
 		// return (this.state.state == UIState.chapter)
 		// 	? <UIHeader />
 		// 	: null;
 		return <UIHeader />;
-	},
+	}
 	render() {
 		return (
 			<div>
@@ -33,4 +33,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

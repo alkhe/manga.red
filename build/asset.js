@@ -6,9 +6,7 @@ import babel from 'gulp-babel';
 import uglify from 'gulp-uglify';
 import cssnext from 'gulp-cssnext';
 import jade from 'gulp-jade';
-import vectors from './vectors';
-
-let { js, css, html } = vectors;
+import { js, css, html } from './vectors';
 
 let make = (vector, transforms) =>
 	() => {
@@ -25,7 +23,7 @@ let make = (vector, transforms) =>
  * Compile Javascript/JSX for production
  */
 gulp.task('js', make(js, [
-	() => babel({ stage: 0 }),
+	() => babel(),
 	uglify
 ]));
 
@@ -48,7 +46,7 @@ gulp.task('html', make(html, [
  */
 gulp.task('js-map', make(js, [
 	sourcemaps.init,
-		() => babel({ stage: 0 }),
+		() => babel(),
 		uglify,
 	() => sourcemaps.write('.')
 ]));
@@ -71,7 +69,7 @@ gulp.task('html-map', make(html, [
  * Compile Javascript/JSX for development
  */
 gulp.task('js-dev', make(js, [
-	() => babel({ stage: 0 })
+	() => babel()
 ]));
 
 /**

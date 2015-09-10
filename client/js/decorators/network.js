@@ -1,28 +1,19 @@
+let listenerKey = '@@network';
+
 export default Stores =>
-	Component => {
-		let change = () => {};
-		class Listener extends Component {
-			constructor() {
-				super();
+	Component =>
+		class Network extends Component {
+			constructor(...args) {
+				super(...args);
 				this.state = _.mapValues(Stores, s => s.getState());
-				change = () => {
-					this.setState(_.mapValues(Stores, s => s.getState()));
-				};
-			}
-			componentDidMount() {
-				let sfn = super.componentDidMount;
-				if (sfn) {
-					sfn();
-				}
-				_.each(Stores, s => { s.listen(change); });
+				this[listenerKey] = () =>
+					super.setState(_.mapValues(Stores, s => s.getState()));
+				_.each(Stores, s => s.listen(this[listenerKey]));
 			}
 			componentWillUnmount() {
-				let sfn = super.componentWillUnmount;
-				if (sfn) {
-					sfn();
+				if (super.componentWillUnmount) {
+					super.componentWillUnmount();
 				}
-				_.each(Stores, s => { s.unlisten(change); });
+				_.each(Stores, s => s.unlisten(this[listenerKey]));
 			}
-		}
-		return Listener;
-	}
+		};

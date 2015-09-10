@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	js: {
 		id: 'js',
 		src: './client/js/**/*.js',

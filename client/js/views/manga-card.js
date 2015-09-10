@@ -2,13 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Stores } from '../hub';
 import Symbiosis from '../decorators/symbiosis';
-import Mixin from '../mixins/mixin';
-let { PureRenderMixin } = React.addons;
 
 @Symbiosis(Stores.UI)
-export default class extends Mixin(React.Component, PureRenderMixin) {
+export default class MangaCard extends React.Component {
 	render() {
-		let color = this.state.color;
+		let { color } = this.state;
 		let m = this.props.manga;
 		return (
 			<Link to='manga' params={{ alias: m.a }}>

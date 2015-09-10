@@ -1,9 +1,7 @@
 import React from 'react';
-import { State } from 'react-router';
 import { Actions, Stores } from '../hub';
-import Mixin from '../mixins/mixin';
 import Symbiosis from '../decorators/symbiosis';
-import DOMEvent from '../mixins/dom-event-mixin';
+import DOMEvent from '../decorators/dom.event';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
@@ -15,10 +13,14 @@ const keys = {
 };
 
 @Symbiosis(Stores.Chapter)
-export default class extends Mixin(React.Component, State, DOMEvent($(document.body), 'keydown', 'handleKey')) {
+@DOMEvent($(document.body), 'keydown', 'handleKey')
+export default class extends React.Component {
+	static contextTypes = {
+		router: React.PropTypes.any.isRequired
+	}
 	componentWillMount() {
 		Actions.UI.toChapter();
-		let params = this.getParams();
+		let params = this.context.router.getCurrentParams();
 		Actions.API.getChapter(params.chapter);
 	}
 	handleKey(e) {

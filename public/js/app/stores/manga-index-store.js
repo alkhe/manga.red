@@ -22,6 +22,10 @@ var _constantsProcessConstants = require('../constants/process-constants');
 
 var _constantsProcessConstants2 = _interopRequireDefault(_constantsProcessConstants);
 
+var _fuse = require('fuse');
+
+var _fuse2 = _interopRequireDefault(_fuse);
+
 var MangaIndexStore = (function () {
 	function MangaIndexStore() {
 		_classCallCheck(this, MangaIndexStore);
@@ -47,7 +51,7 @@ var MangaIndexStore = (function () {
 		value: function getAllMangaComplete(list) {
 			this.all = list;
 			this.sorted = _.sortByOrder(list, 'h', false);
-			this.fuzzy = new Fuse(this.sorted, { keys: ['t'], threshold: 0.36, distance: 6 });
+			this.fuzzy = new _fuse2['default'](this.sorted, { keys: ['t'], threshold: .36, distance: 6 });
 
 			this.process = _constantsProcessConstants2['default'].Done;
 		}

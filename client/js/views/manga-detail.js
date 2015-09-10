@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link, State } from 'react-router';
+import { Link } from 'react-router';
 import { Actions, Stores } from '../hub';
 import Network from '../decorators/network';
-import Mixin from '../mixins/mixin';
 import Progress from '../views/progress';
 import Process from '../constants/process-constants';
 
@@ -10,7 +9,10 @@ import Process from '../constants/process-constants';
 	title: Stores.Title,
 	ui: Stores.UI
 })
-export default class extends Mixin(React.Component, State) {
+export default class extends React.Component {
+	static contextTypes = {
+		router: React.PropTypes.any.isRequired
+	}
 	componentWillMount() {
 		Actions.UI.toTitle();
 	}
@@ -19,7 +21,7 @@ export default class extends Mixin(React.Component, State) {
 		let { title, ui } = this.state;
 		if (title.process == Process.Done) {
 			let chapters = title.manga.chapters.map(c =>
-				<Link to='chapter' params={{ alias: this.getParams().alias, chapter: c[0] }} key={c[0]} className='row chapter-entry'>
+				<Link to='chapter' params={{ alias: this.context.router.getCurrentParams().alias, chapter: c[0] }} key={c[0]} className='row chapter-entry'>
 					<div className={`col s1 ${ui.color} lighten-3 ${ui.color}-text text-lighten-1 right-align`}><div>{c[0]}</div></div>
 					<div className={`col s11 ${ui.color} lighten-4 ${ui.color}-text text-darken-1`}><div>{(c[2] && c[0] != c[2]) ? c[2] : 'N/A'}</div></div>
 				</Link>

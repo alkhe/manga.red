@@ -6,11 +6,13 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -24,10 +26,6 @@ var _constantsUiStateConstants = require('../constants/ui-state-constants');
 
 var _constantsUiStateConstants2 = _interopRequireDefault(_constantsUiStateConstants);
 
-var _mixinsMixin = require('../mixins/mixin');
-
-var _mixinsMixin2 = _interopRequireDefault(_mixinsMixin);
-
 var _decoratorsNetwork = require('../decorators/network');
 
 var _decoratorsNetwork2 = _interopRequireDefault(_decoratorsNetwork);
@@ -36,34 +34,27 @@ var _colorpicker = require('./colorpicker');
 
 var _colorpicker2 = _interopRequireDefault(_colorpicker);
 
-var TransitionGroup = _react.addons.TransitionGroup;
-
 var _default = (function (_React$Component) {
-	var _class = function _default() {
-		var _this = this;
+	_inherits(_default, _React$Component);
 
-		_classCallCheck(this, _class2);
+	function _default() {
+		_classCallCheck(this, _default2);
 
-		if (_React$Component != null) {
-			_React$Component.apply(this, arguments);
+		_get(Object.getPrototypeOf(_default2.prototype), 'constructor', this).apply(this, arguments);
+	}
+
+	_createClass(_default, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.componentDidUpdate();
 		}
-
-		this.componentDidMount = function () {
-			_this.componentDidUpdate();
-		};
-	};
-
-	_inherits(_class, _React$Component);
-
-	var _class2 = _class;
-
-	_createClass(_class2, [{
+	}, {
 		key: 'componentDidUpdate',
 		value: function componentDidUpdate() {
-			var _this2 = this;
+			var _this = this;
 
 			_.defer(function () {
-				switch (_this2.state.ui.level) {
+				switch (_this.state.ui.level) {
 					case _constantsUiStateConstants2['default'].index:
 						break;
 					case _constantsUiStateConstants2['default'].title:
@@ -79,7 +70,8 @@ var _default = (function (_React$Component) {
 	}, {
 		key: 'renderLeft',
 		value: function renderLeft() {
-			var extra = undefined;
+			var extra = undefined,
+			    params = undefined;
 			var _state = this.state;
 			var ui = _state.ui;
 			var title = _state.title;
@@ -89,26 +81,26 @@ var _default = (function (_React$Component) {
 				case _constantsUiStateConstants2['default'].index:
 					break;
 				case _constantsUiStateConstants2['default'].title:
-					var params = this.getParams();
+					params = this.context.router.getCurrentParams();
 					extra = _react2['default'].createElement(
 						'li',
 						{ key: 'detail' },
 						_react2['default'].createElement(
 							_reactRouter.Link,
-							{ className: '' + ui.color + '-text text-lighten-4 animated fadeIn', to: 'detail', params: { alias: params.alias } },
+							{ className: ui.color + '-text text-lighten-4 animated fadeIn', to: 'detail', params: { alias: params.alias } },
 							title.manga.title
 						)
 					);
 					break;
 				case _constantsUiStateConstants2['default'].chapter:
-					var params = this.getParams();
+					params = this.context.router.getCurrentParams();
 					extra = [['detail', 'detail', { alias: params.alias }, title.manga.title], ['chapter', 'chapter', { alias: params.alias, chapter: params.chapter }, 'Ch. ' + params.chapter], ['page', 'chapter', { alias: params.alias, chapter: params.chapter }, 'Pg. ' + chapter.page]].map(function (arr) {
 						return _react2['default'].createElement(
 							'li',
 							{ key: arr[0] },
 							_react2['default'].createElement(
 								_reactRouter.Link,
-								{ className: '' + ui.color + '-text text-lighten-4 animated fadeIn', to: arr[1], params: arr[2] },
+								{ className: ui.color + '-text text-lighten-4 animated fadeIn', to: arr[1], params: arr[2] },
 								arr[3]
 							)
 						);
@@ -177,14 +169,21 @@ var _default = (function (_React$Component) {
 				)
 			);
 		}
+	}], [{
+		key: 'contextTypes',
+		value: {
+			router: _react2['default'].PropTypes.any.isRequired
+		},
+		enumerable: true
 	}]);
 
-	_class = (0, _decoratorsNetwork2['default'])({
+	var _default2 = _default;
+	_default = (0, _decoratorsNetwork2['default'])({
 		ui: _hub.Stores.UI,
 		title: _hub.Stores.Title,
 		chapter: _hub.Stores.Chapter
-	})(_class) || _class;
-	return _class;
+	})(_default) || _default;
+	return _default;
 })(_react2['default'].Component);
 
 exports['default'] = _default;

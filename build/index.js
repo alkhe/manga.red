@@ -1,10 +1,10 @@
-var gulp = require('gulp'),
-	del = require('del');
+import gulp from 'gulp';
+import del from 'del';
 
-require('./compile');
-require('./watch');
-require('./assetwatch');
-require('./asset');
+import './compile';
+import './watch';
+import './assetwatch';
+import './asset';
 
 gulp.task('default', ['pro']);
 
@@ -26,6 +26,4 @@ gulp.task('dev', ['compile-dev', 'watch-dev']);
 /**
  * Clean build files
  */
-gulp.task('clean', function() {
-	del(['./public/js/app', './public/css/app', './public/*.html']);
-});
+gulp.task('clean', () => del(['./public/js/app', './public/css/app', './public/*.html']));

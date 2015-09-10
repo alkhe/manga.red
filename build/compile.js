@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+import gulp from 'gulp';
 
 /**
  * Compile assets for production

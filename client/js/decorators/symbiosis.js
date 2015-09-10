@@ -1,28 +1,20 @@
+let listenerKey = '@@symbiosis';
+
 export default Store =>
-	Component => {
-		let change = () => {};
-		class Listener extends Component {
-			constructor() {
-				super();
+	Component =>
+		class symbiosis extends Component {
+			constructor(...args) {
+				super(...args);
 				this.state = Store.getState();
-				change = () => {
-					this.setState(Store.getState());
-				};
-			}
-			componentDidMount() {
-				let sfn = super.componentDidMount;
-				if (sfn) {
-					sfn();
-				}
-				Store.listen(change);
+				Store.listen(
+					this[listenerKey] = () =>
+						super.setState(Store.getState())
+				);
 			}
 			componentWillUnmount() {
-				let sfn = super.componentWillUnmount;
-				if (sfn) {
-					sfn();
+				if (super.componentWillUnmount) {
+					super.componentWillUnmount();
 				}
-				Store.unlisten(change);
+				Store.unlisten(this[listenerKey]);
 			}
 		}
-		return Listener;
-	}

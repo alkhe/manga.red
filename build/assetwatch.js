@@ -1,15 +1,8 @@
-var gulp = require('gulp'),
-	vectors = require('./vectors');
+import gulp from 'gulp';
+import { js, css, html } from './vectors';
 
-var js = vectors.js,
-	css = vectors.css,
-	html = vectors.html;
-
-var watch = function(vector, task) {
-	return function() {
-		gulp.watch(vector.src, task);
-	};
-};
+let watch = (vector, task) =>
+	() => gulp.watch(vector.src, task);
 
 
 gulp.task('jsw', watch(js, ['js']));

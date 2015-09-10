@@ -1,6 +1,7 @@
 import alt from '../alt';
 import Actions from '../actions/index';
 import Process from '../constants/process-constants';
+import Fuse from 'fuse';
 
 class MangaIndexStore {
 	constructor() {
